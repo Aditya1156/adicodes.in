@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { ChatBubbleIcon, CloseIcon, SendIcon } from './icons/UIIcons';
-import { startChat } from '../lib/gemini';
-import type { ChatSession, GenerateContentResult } from '@google/generative-ai';
+import { startLocalChat, generateLocalResponse } from '../lib/localAI';
 import { trackEvent } from '../lib/analytics';
 import { 
   fadeInUp, 
@@ -16,8 +15,12 @@ interface Message {
   text: string;
 }
 
+interface LocalChatSession {
+  sendMessage: (message: string) => Promise<{ response: { text: () => string } }>;
+}
+
 const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-    const [chat, setChat] = useState<ChatSession | null>(null);
+    const [chat, setChat] = useState<LocalChatSession | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -32,18 +35,15 @@ const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     useEffect(scrollToBottom, [messages, isLoading]);
 
     useEffect(() => {
-        const chatSession = startChat();
-        if (chatSession) {
-            setChat(chatSession);
-            // Simulate typing for welcome message
-            setTimeout(() => {
-                setMessages([{ role: 'model', text: "Hi! I'm Aditya's AI assistant. Ask me anything about his skills or projects." }]);
-                setIsLoading(false);
-            }, 1000);
-        } else {
-            setMessages([{ role: 'model', text: "Sorry, the AI assistant is currently unavailable." }]);
+        // Initialize local chat immediately
+        const chatSession = startLocalChat();
+        setChat(chatSession);
+        
+        // Simulate typing for welcome message
+        setTimeout(() => {
+            setMessages([{ role: 'model', text: "Hi! I'm Aditya's AI assistant. I know everything about his skills, projects, and experience. Ask me anything!" }]);
             setIsLoading(false);
-        }
+        }, 1000);
     }, []);
 
     const handleSend = async (e: React.FormEvent) => {
@@ -65,19 +65,20 @@ const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         });
 
         try {
-            // Simulate thinking time
-            await new Promise(resolve => setTimeout(resolve, 800));
-            const result: GenerateContentResult = await chat.sendMessage(currentInput);
+            // Simulate thinking time for natural feel
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 500));
+            
+            // Generate local response
+            const responseText = generateLocalResponse(currentInput);
             setIsTyping(false);
             
             // Simulate typing the response
-            const responseText = result.response.text();
             const modelMessage: Message = { role: 'model', text: responseText };
             setMessages(prev => [...prev, modelMessage]);
         } catch (error) {
-            console.error("Gemini API Error:", error);
+            console.error("Local AI Error:", error);
             setIsTyping(false);
-            const errorMessage: Message = { role: 'model', text: "Sorry, I encountered an error. Please try again." };
+            const errorMessage: Message = { role: 'model', text: "Sorry, I encountered an error. Please try asking something else about Aditya!" };
             setMessages(prev => [...prev, errorMessage]);
         } finally {
             setIsLoading(false);
@@ -272,9 +273,9 @@ const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        placeholder="Ask about Aditya..."
+                        placeholder="Ask about Aditya's skills, projects, experience..."
                         className="w-full pl-4 pr-12 py-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-sm"
-                        disabled={isLoading || !chat}
+                        disabled={isLoading}
                         animate={inputControls}
                         whileFocus={{ 
                             scale: 1.02,
@@ -284,7 +285,7 @@ const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     <motion.button 
                         type="submit" 
                         className="absolute right-1.5 top-1/2 -translate-y-1/2 p-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all shadow-lg" 
-                        disabled={!input.trim() || isLoading || !chat} 
+                        disabled={!input.trim() || isLoading} 
                         aria-label="Send message"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
@@ -438,7 +439,7 @@ const ChatbotWidget: React.FC = () => {
                             transition={{ delay: 2, duration: 0.3 }}
                         >
                             <div className="relative">
-                                Ask me anything! 💬
+                                Ask me about Aditya! 🤖
                                 <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white dark:border-t-gray-800" />
                             </div>
                         </motion.div>

@@ -92,8 +92,8 @@ const HomePage: React.FC = () => {
                 }}
               />
               <motion.img
-                src="/images/profile.jpg"
-                alt="Aditya Kumar"
+                src="/images/aditya.jpg"
+                alt="Aditya Kumar - MERN Stack Developer"
                 className="relative w-40 h-40 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-2xl z-10"
                 whileHover={{ 
                   scale: 1.1, 
@@ -195,24 +195,37 @@ const HomePage: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Featured Projects Section */}
+          {/* Optimized Featured Projects Section */}
           {featuredProjects.length > 0 && (
             <motion.section 
-              className="w-full max-w-5xl mx-auto"
+              className="w-full max-w-6xl mx-auto px-4"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <motion.h3 
-                className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
+              <motion.div
+                className="text-center mb-12"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Featured Projects
-              </motion.h3>
+                <motion.h3 
+                  className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent"
+                >
+                  Featured Projects
+                </motion.h3>
+                <motion.p
+                  className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  Explore some of my best work showcasing modern web development with cutting-edge technologies
+                </motion.p>
+              </motion.div>
               <FeaturedProjectsCarousel projects={featuredProjects} />
             </motion.section>
           )}

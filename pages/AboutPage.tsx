@@ -98,9 +98,9 @@ const AboutPage: React.FC = () => {
         keywords="About Aditya Kumar, biography, skills, computer science, MERN stack"
       />
       <BackgroundWrapper>
-        <div className="max-w-4xl mx-auto py-16 px-4">
+        <div className="max-w-6xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
               <motion.h1
-                  className="text-5xl font-extrabold text-center mb-16 tracking-tight text-gray-900 dark:text-white"
+                  className="text-5xl md:text-6xl font-extrabold text-center mb-20 tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
                   variants={itemVariants}
                   initial="hidden"
                   whileInView="visible"
@@ -110,7 +110,7 @@ const AboutPage: React.FC = () => {
               </motion.h1>
 
               <motion.div
-                  className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-24 items-center"
+                  className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-32 items-center"
                   variants={containerVariants}
                   initial="hidden"
                   whileInView="visible"
@@ -122,26 +122,29 @@ const AboutPage: React.FC = () => {
                   >
                       <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-50 dark:opacity-30"></div>
                       <motion.img
-                          src="/images/profile.jpg"
-                          alt="Aditya Kumar"
+                          src="/images/aditya.jpg"
+                          alt="Aditya Kumar - MERN Stack Developer"
                           className="relative w-full h-full rounded-full object-cover shadow-2xl border-4 border-white dark:border-gray-800"
                           whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                       />
                   </motion.div>
                   <motion.div 
-                      className="md:col-span-2"
+                      className="lg:col-span-2"
                       variants={itemVariants}
                   >
-                      <h2 className="text-3xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">A Passionate Developer</h2>
+                      <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">MERN Stack Developer</h2>
+                      <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                          Hello! I'm Aditya Kumar, a third-year Computer Science student at PES Institute of Technology & Management, Shivamogga, Karnataka. I'm passionate about MERN stack development and full-stack engineering, with experience in building scalable web applications using React, TypeScript, Firebase, and AI integration.
+                      </p>
                       <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                          Hello! I'm Aditya, a third-year computer science student at PESITM with a deep interest in full-stack engineering. From my first "Hello World", I was captivated by the power of code to create and solve problems. I specialize in the MERN stack and enjoy integrating AI to build smarter, more interactive applications.
+                          I've deployed multiple real-world projects including TypingPath (currently in production) and various AI-powered applications. Known for writing clean, maintainable code and delivering high-performance, user-focused applications. Expected graduation: January 2027.
                       </p>
                   </motion.div>
               </motion.div>
               
-               <div className="mb-24">
+               <div className="mb-32">
                   <motion.h2
-                      className="text-3xl font-bold text-center mb-12"
+                      className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.5 }}
@@ -150,7 +153,7 @@ const AboutPage: React.FC = () => {
                       My Tech Stack
                   </motion.h2>
                   <motion.div
-                      className="flex flex-wrap justify-center gap-6 md:gap-8"
+                      className="flex flex-wrap justify-center gap-8 md:gap-12"
                       variants={techStackContainerVariants}
                       initial="hidden"
                       whileInView="visible"
@@ -173,9 +176,9 @@ const AboutPage: React.FC = () => {
                   </motion.div>
               </div>
 
-              <div className="mb-24">
+              <div className="mb-32">
                    <motion.h2 
-                      className="text-3xl font-bold text-center mb-12"
+                      className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.5 }}
@@ -184,7 +187,7 @@ const AboutPage: React.FC = () => {
                       Beyond the Code
                    </motion.h2>
                    <motion.div 
-                      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+                      className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
                       variants={containerVariants}
                       initial="hidden"
                       whileInView="visible"
@@ -209,7 +212,7 @@ const AboutPage: React.FC = () => {
               </div>
 
               <motion.h2
-                  className="text-3xl font-bold text-center mb-12"
+                  className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.5 }}
@@ -217,31 +220,124 @@ const AboutPage: React.FC = () => {
               >
                   My Journey
               </motion.h2>
-              <div className="relative border-l-2 border-indigo-300 dark:border-indigo-700 ml-4">
-                  <div className="absolute w-1 top-0 left-[-2.5px] h-full bg-gradient-to-b from-transparent via-indigo-500 to-transparent animate-line-flow"></div>
-                  {TIMELINE_EVENTS.map((event, index) => (
-                      <motion.div
-                          key={index}
-                          className="mb-12 ml-8 group"
-                          initial={{ opacity: 0, x: -30 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true, amount: 0.5 }}
-                          transition={{ type: 'spring', stiffness: 90, damping: 12, delay: index * 0.15 }}
-                      >
-                          <span className="absolute flex items-center justify-center w-8 h-8 bg-white dark:bg-gray-800 rounded-full -left-[17px] ring-4 ring-white dark:ring-gray-900 transition-all duration-300 group-hover:bg-indigo-500 group-hover:ring-indigo-200 dark:group-hover:ring-indigo-500/30">
-                              <div className="w-3 h-3 bg-indigo-500 rounded-full transition-all duration-300 group-hover:bg-white"></div>
-                          </span>
-                          <motion.div 
-                              className="p-6 rounded-lg bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-gray-200/80 dark:border-gray-700/80 shadow-md transition-all duration-300 group-hover:shadow-2xl group-hover:border-indigo-400 dark:group-hover:border-indigo-500 group-hover:-translate-y-2"
+              
+              {/* Timeline Container */}
+              <div className="relative max-w-4xl mx-auto">
+                  {/* Flowing timeline line - Hidden on mobile */}
+                  <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-indigo-200 via-indigo-500 to-purple-500 rounded-full"></div>
+                  <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-transparent via-white to-transparent opacity-50 animate-line-flow"></div>
+                  
+                  {/* Mobile timeline line */}
+                  <div className="md:hidden absolute left-8 w-1 h-full bg-gradient-to-b from-indigo-200 via-indigo-500 to-purple-500 rounded-full"></div>
+                  
+                  <div className="space-y-12">
+                      {TIMELINE_EVENTS.map((event, index) => (
+                          <motion.div
+                              key={index}
+                              className={`relative flex items-center ${
+                                  // Desktop: alternate sides, Mobile: always left-aligned
+                                  'md:' + (index % 2 === 0 ? 'justify-start' : 'justify-end')
+                              }`}
+                              initial={{ opacity: 0, x: window.innerWidth < 768 ? -50 : (index % 2 === 0 ? -50 : 50) }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true, amount: 0.5 }}
+                              transition={{ 
+                                  type: 'spring', 
+                                  stiffness: 100, 
+                                  damping: 15, 
+                                  delay: index * 0.2 
+                              }}
                           >
-                              <h3 className="flex items-center mb-1 text-xl font-semibold text-gray-900 dark:text-white">
-                                  {event.title}
-                                  <span className="bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300 ml-3">{event.year}</span>
-                              </h3>
-                              <p className="block mb-2 text-base font-normal text-gray-600 dark:text-gray-400">{event.description}</p>
+                              {/* Timeline content */}
+                              <motion.div 
+                                  className={`w-full md:w-5/12 ${
+                                      index % 2 === 0 
+                                          ? 'md:pr-8 md:text-right ml-16 md:ml-0' 
+                                          : 'md:pl-8 md:text-left ml-16 md:ml-0'
+                                  }`}
+                              >
+                                  <motion.div 
+                                      className="group relative bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg p-6 rounded-2xl border border-gray-200/80 dark:border-gray-700/80 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                                      whileHover={{ 
+                                          scale: 1.02,
+                                          boxShadow: "0 25px 50px -12px rgba(99, 102, 241, 0.25)"
+                                      }}
+                                  >
+                                      {/* Year badge */}
+                                      <span className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-bold px-4 py-2 rounded-full mb-3 shadow-md">
+                                          {event.year}
+                                      </span>
+                                      
+                                      {/* Title */}
+                                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                          {event.title}
+                                      </h3>
+                                      
+                                      {/* Description */}
+                                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                          {event.description}
+                                      </p>
+                                      
+                                      {/* Decorative arrow - Desktop only */}
+                                      <div className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 ${
+                                          index % 2 === 0 
+                                              ? '-right-3 border-l-8 border-l-white dark:border-l-gray-800 border-y-8 border-y-transparent' 
+                                              : '-left-3 border-r-8 border-r-white dark:border-r-gray-800 border-y-8 border-y-transparent'
+                                      }`}></div>
+                                  </motion.div>
+                              </motion.div>
+                              
+                              {/* Central timeline dot - Desktop center, Mobile left */}
+                              <motion.div 
+                                  className={`absolute w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg z-10 ${
+                                      'md:left-1/2 md:transform md:-translate-x-1/2 left-5'
+                                  }`}
+                                  initial={{ scale: 0 }}
+                                  whileInView={{ scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ 
+                                      delay: index * 0.2 + 0.3,
+                                      type: "spring",
+                                      stiffness: 200,
+                                      damping: 10
+                                  }}
+                                  whileHover={{ 
+                                      scale: 1.3,
+                                      boxShadow: "0 0 20px rgba(99, 102, 241, 0.6)"
+                                  }}
+                              >
+                                  <motion.div 
+                                      className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                      animate={{ 
+                                          scale: [1, 1.2, 1],
+                                          opacity: [1, 0.8, 1]
+                                      }}
+                                      transition={{ 
+                                          duration: 2,
+                                          repeat: Infinity,
+                                          delay: index * 0.5
+                                      }}
+                                  />
+                              </motion.div>
                           </motion.div>
-                      </motion.div>
-                  ))}
+                      ))}
+                  </div>
+                  
+                  {/* End marker */}
+                  <motion.div 
+                      className="absolute bottom-0 left-1/2 md:left-1/2 md:transform md:-translate-x-1/2 left-5 translate-y-8"
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: TIMELINE_EVENTS.length * 0.2 + 0.5 }}
+                  >
+                      <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg flex items-center justify-center">
+                          <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                      </div>
+                      <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 font-medium whitespace-nowrap">
+                          To be continued...
+                      </p>
+                  </motion.div>
               </div>
               <style>{`
                   @keyframes blob {

@@ -154,15 +154,59 @@ export const pageTransition = {
   transition: { duration: 0.3 }
 };
 
-// Button hover effects
+// Button hover effects - Optimized for responsive design
 export const buttonHover = {
-  scale: 1.05,
-  transition: { type: "spring", stiffness: 400, damping: 10 }
+  scale: 1.03,
+  transition: { 
+    type: "spring", 
+    stiffness: 500, 
+    damping: 30,
+    mass: 0.5
+  }
 };
 
 export const buttonTap = {
-  scale: 0.95,
-  transition: { type: "spring", stiffness: 400, damping: 10 }
+  scale: 0.97,
+  transition: { 
+    type: "spring", 
+    stiffness: 600, 
+    damping: 20,
+    mass: 0.3
+  }
+};
+
+// Responsive hover effects for different screen sizes
+export const responsiveHover = {
+  mobile: {
+    scale: 1.01,
+    transition: { duration: 0.2, ease: "easeOut" }
+  },
+  desktop: {
+    scale: 1.03,
+    y: -1,
+    transition: { 
+      type: "spring", 
+      stiffness: 400, 
+      damping: 25 
+    }
+  }
+};
+
+// Gentle animations for navigation items
+export const navItemHover = {
+  scale: 1.02,
+  y: -1,
+  transition: { 
+    type: "spring", 
+    stiffness: 500, 
+    damping: 30,
+    mass: 0.5
+  }
+};
+
+export const navItemTap = {
+  scale: 0.98,
+  transition: { duration: 0.1 }
 };
 
 // Card hover effects
@@ -420,4 +464,423 @@ export const floatAnimation: Variants = {
       ease: "easeInOut",
     },
   },
+};
+
+// Enhanced project-specific animations
+export const projectCardVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: 50,
+    scale: 0.9,
+    rotateX: 10,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+  hover: {
+    y: -8,
+    scale: 1.02,
+    rotateX: -2,
+    boxShadow: "0 20px 40px -8px rgba(0, 0, 0, 0.15)",
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 25,
+      mass: 0.8,
+    },
+  },
+};
+
+export const projectGridContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+      duration: 0.3,
+    },
+  },
+};
+
+export const projectModalVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.8,
+    rotateX: 15,
+    y: 60,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotateX: 0,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 25,
+      mass: 1,
+      delay: 0.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.9,
+    rotateX: -10,
+    y: -30,
+    transition: {
+      duration: 0.25,
+      ease: [0.4, 0, 1, 1],
+    },
+  },
+};
+
+export const imageGalleryVariants: Variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0,
+    scale: 1.1,
+    filter: "blur(4px)",
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 30 },
+      opacity: { duration: 0.3 },
+      scale: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+      filter: { duration: 0.3 },
+    },
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0,
+    scale: 0.9,
+    filter: "blur(2px)",
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 30 },
+      opacity: { duration: 0.2 },
+      scale: { duration: 0.3 },
+      filter: { duration: 0.2 },
+    },
+  }),
+};
+
+export const glowEffect: Variants = {
+  rest: {
+    boxShadow: "0 0 0 0 rgba(99, 102, 241, 0)",
+  },
+  hover: {
+    boxShadow: "0 0 20px 2px rgba(99, 102, 241, 0.3)",
+    transition: {
+      duration: 0.3,
+      ease: "easeOut",
+    },
+  },
+};
+
+export const magneticHover: Variants = {
+  rest: { x: 0, y: 0 },
+  hover: {
+    transition: { 
+      type: "spring", 
+      stiffness: 300, 
+      damping: 20,
+      mass: 0.5,
+    },
+  },
+};
+
+export const tagVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    scale: 0.6,
+    y: 20,
+  },
+  visible: (index: number) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      delay: index * 0.05,
+      duration: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+  hover: {
+    scale: 1.1,
+    y: -2,
+    transition: { 
+      type: "spring", 
+      stiffness: 400, 
+      damping: 15 
+    },
+  },
+};
+
+export const featureListVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+export const featureItemVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    x: -20,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
+export const carouselSlideVariants: Variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0,
+    scale: 0.9,
+    rotateY: direction > 0 ? 25 : -25,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotateY: 0,
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 30 },
+      opacity: { duration: 0.3 },
+      scale: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+      rotateY: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0,
+    scale: 0.9,
+    rotateY: direction < 0 ? 25 : -25,
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 30 },
+      opacity: { duration: 0.2 },
+      scale: { duration: 0.3 },
+      rotateY: { duration: 0.3 },
+    },
+  }),
+};
+
+export const projectBackgroundVariants: Variants = {
+  hidden: { 
+    opacity: 0,
+    scale: 1.1,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1.2,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
+export const statusBadgeVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    scale: 0.5,
+    rotate: -10,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 20,
+      delay: 0.2,
+    },
+  },
+  hover: {
+    scale: 1.1,
+    rotate: 2,
+    transition: { 
+      type: "spring", 
+      stiffness: 400, 
+      damping: 15 
+    },
+  },
+};
+
+export const loadingSpinnerVariants: Variants = {
+  animate: {
+    rotate: 360,
+    transition: {
+      duration: 1,
+      repeat: Infinity,
+      ease: "linear",
+    },
+  },
+};
+
+// Advanced micro-interactions
+export const rippleEffect: Variants = {
+  initial: { 
+    scale: 0, 
+    opacity: 0.5 
+  },
+  animate: { 
+    scale: 4, 
+    opacity: 0,
+    transition: { 
+      duration: 0.6,
+      ease: "easeOut" 
+    }
+  },
+};
+
+export const breathingAnimation: Variants = {
+  animate: {
+    scale: [1, 1.02, 1],
+    opacity: [0.8, 1, 0.8],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
+export const parallaxVariants: Variants = {
+  animate: (offset: number) => ({
+    y: offset * 0.5,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  }),
+};
+
+// Enhanced modal-specific animations
+export const modalOverlayVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    backdropFilter: "blur(0px)" 
+  },
+  visible: { 
+    opacity: 1, 
+    backdropFilter: "blur(8px)",
+    transition: { 
+      duration: 0.4, 
+      ease: "easeOut" 
+    } 
+  },
+  exit: { 
+    opacity: 0, 
+    backdropFilter: "blur(0px)",
+    transition: { 
+      duration: 0.3, 
+      ease: "easeIn" 
+    } 
+  }
+};
+
+export const modalContentVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+    scale: 0.9,
+    rotateX: 15,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 1, 0.5, 1],
+      staggerChildren: 0.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 50,
+    scale: 0.9,
+    rotateX: 15,
+    transition: {
+      duration: 0.3,
+      ease: [0.5, 0, 0.75, 0],
+    },
+  },
+};
+
+export const modalImageVariants: Variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0,
+    scale: 1.1,
+    rotateY: direction > 0 ? 45 : -45,
+  }),
+  center: { 
+    zIndex: 1, 
+    x: 0, 
+    opacity: 1, 
+    scale: 1,
+    rotateY: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 1, 0.5, 1],
+    }
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0,
+    scale: 0.9,
+    rotateY: direction < 0 ? 45 : -45,
+    transition: {
+      duration: 0.3,
+      ease: [0.5, 0, 0.75, 0],
+    }
+  }),
+};
+
+// Floating animation for background particles
+export const floatingVariants: Variants = {
+  animate: {
+    y: [-20, 20],
+    x: [-10, 10],
+    rotate: [-5, 5],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    }
+  }
 };
