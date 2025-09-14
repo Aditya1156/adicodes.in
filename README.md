@@ -222,7 +222,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📞 Contact & Connect
 
 - **🌐 Portfolio**: [adicodes.in](https://adicodes.in)
-- **💼 LinkedIn**:in.com/in/aditya-kumar-165911339
+- **💼 LinkedIn**:[Linkedin](https://www.linkedin.com/in/aditya-kumar-165911339)
 - **📧 Email**: adityaissc7@gmail.com
 - **📱 GitHub**: [Aditya1156](https://github.com/Aditya1156)
 
