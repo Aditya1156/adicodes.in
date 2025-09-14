@@ -196,14 +196,10 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
     >
       {/* Enhanced container */}
       <div className="relative w-full max-w-5xl mx-auto px-4">
-        {/* Enhanced Navigation arrows with professional half-circle design */}
+        {/* Enhanced Navigation arrows with professional circular design */}
         <motion.button
           onClick={() => paginate(-1)}
-          className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-3/4 w-12 h-12 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border-2 border-slate-200/80 dark:border-slate-600/80 hover:border-blue-500/50 dark:hover:border-blue-400/50 z-30 backdrop-blur-sm transition-all duration-300 flex items-center justify-center"
-          style={{
-            borderRadius: '50% 0 0 50%',
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
-          }}
+          className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-12 h-12 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border-2 border-slate-200/80 dark:border-slate-600/80 hover:border-blue-500/50 dark:hover:border-blue-400/50 z-30 backdrop-blur-sm transition-all duration-300 flex items-center justify-center rounded-full"
           whileHover={{ 
             scale: 1.1,
             x: -3,
@@ -220,11 +216,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
 
         <motion.button
           onClick={() => paginate(1)}
-          className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-3/4 w-12 h-12 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border-2 border-slate-200/80 dark:border-slate-600/80 hover:border-blue-500/50 dark:hover:border-blue-400/50 z-30 backdrop-blur-sm transition-all duration-300 flex items-center justify-center"
-          style={{
-            borderRadius: '0 50% 50% 0',
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
-          }}
+          className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-12 h-12 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border-2 border-slate-200/80 dark:border-slate-600/80 hover:border-blue-500/50 dark:hover:border-blue-400/50 z-30 backdrop-blur-sm transition-all duration-300 flex items-center justify-center rounded-full"
           whileHover={{ 
             scale: 1.1,
             x: 3,
@@ -529,7 +521,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                   y: -1,
                 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label={`Go to project ${index + 1}: ${projects[index].title}`}
+                aria-label={`Go to project ${index + 1}: ${projects[index]?.title || 'Project'}`}
               >
                 {page === index && isAutoPlaying && (
                   <motion.div
@@ -546,7 +538,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                   whileHover={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  {projects[index].title}
+                  {projects[index]?.title || 'Project'}
                 </motion.div>
               </motion.button>
             ))}
