@@ -24,7 +24,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Frontend Development",
     color: "text-blue-400",
-    bgColor: "bg-blue-900/30",
+    bgColor: "bg-gradient-to-br from-blue-500/20 to-cyan-500/20",
     skills: [
       {
         name: "React.js",
@@ -54,8 +54,8 @@ const skillsData: SkillCategory[] = [
   },
   {
     name: "Backend Development",
-    color: "text-cyan-400",
-    bgColor: "bg-cyan-900/30",
+    color: "text-purple-400",
+    bgColor: "bg-gradient-to-br from-purple-500/20 to-pink-500/20",
     skills: [
       {
         name: "Node.js",
@@ -78,7 +78,7 @@ const skillsData: SkillCategory[] = [
   {
     name: "Programming Languages",
     color: "text-slate-400",
-    bgColor: "bg-slate-900/30",
+    bgColor: "bg-gradient-to-br from-slate-500/20 to-gray-500/20",
     skills: [
       {
         name: "Java",
@@ -103,47 +103,39 @@ const SkillBar: React.FC<{ skill: Skill; delay: number }> = ({ skill, delay }) =
 
   return (
     <motion.div
-      className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 hover:shadow-md transition-shadow duration-300"
+      className="group bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-slate-200/10 hover:border-blue-500/30 transition-all duration-300 hover:bg-white/10"
       {...(shouldReduceMotion ? {} : optimizedFadeIn)}
       transition={{ delay: delay / 1000 }}
-      whileHover={shouldReduceMotion ? {} : { y: -2 }}
+      whileHover={shouldReduceMotion ? {} : { y: -4, scale: 1.02 }}
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-lg">
-            <skill.icon className="w-6 h-6 text-blue-400" />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-4">
+          <div className="relative w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl border border-blue-500/20 group-hover:border-blue-400/40 transition-all duration-300">
+            <skill.icon className="w-7 h-7 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
           <div>
-            <h3 className="font-semibold text-white">{skill.name}</h3>
-            <p className="text-sm text-gray-400">{skill.experience}</p>
+            <h3 className="font-semibold text-white text-lg group-hover:text-blue-100 transition-colors duration-300">{skill.name}</h3>
+            <p className="text-sm text-slate-400 font-medium">{skill.experience}</p>
           </div>
         </div>
         <div className="text-right">
-          <span className="text-lg font-bold text-blue-400">{skill.level}%</span>
-          <p className="text-xs text-gray-400">{skill.projects} projects</p>
+          <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{skill.level}%</span>
+          <p className="text-xs text-slate-500 font-medium mt-1">{skill.projects} projects</p>
         </div>
       </div>
       
       <div className="relative">
-        <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden backdrop-blur-sm">
           <motion.div
-            className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
+            className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-400 rounded-full relative overflow-hidden"
             initial={{ width: 0 }}
             animate={{ width: isVisible ? `${skill.level}%` : 0 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 1.5, ease: "easeOut" }}
-          />
+            transition={{ duration: shouldReduceMotion ? 0 : 1.8, ease: "easeOut" }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse" />
+          </motion.div>
         </div>
-        <motion.div
-          className="absolute -top-8 bg-white text-gray-900 px-2 py-1 rounded text-xs font-medium"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ 
-            opacity: isVisible ? 1 : 0, 
-            x: isVisible ? `calc(${skill.level}% - 20px)` : -20 
-          }}
-          transition={{ duration: shouldReduceMotion ? 0 : 1.5, ease: "easeOut" }}
-        >
-          {skill.level}%
-        </motion.div>
       </div>
     </motion.div>
   );
@@ -157,20 +149,27 @@ const CategoryFilter: React.FC<{
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="flex flex-wrap justify-center gap-3 mb-8">
+    <div className="flex flex-wrap justify-center gap-3 mb-12">
       {categories.map((category) => (
         <motion.button
           key={category}
           onClick={() => onCategoryChange(category)}
-          className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+          className={`relative px-8 py-4 rounded-2xl font-semibold text-sm transition-all duration-300 backdrop-blur-sm border ${
             activeCategory === category
-              ? 'bg-indigo-600 text-white shadow-lg'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-xl shadow-blue-500/25 border-blue-400/30'
+              : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border-slate-600/30 hover:border-slate-500/50'
           }`}
-          whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-          whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+          whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
+          whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
         >
-          {category}
+          {activeCategory === category && (
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl"
+              layoutId="categoryBackground"
+              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+            />
+          )}
+          <span className="relative z-10">{category}</span>
         </motion.button>
       ))}
     </div>
@@ -195,64 +194,97 @@ const SkillsVisualization: React.FC = () => {
   );
 
   return (
-    <section className="py-20 relative">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-20 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/5 to-slate-900/10" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+          <motion.h2 
+            className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             Technical Expertise
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive skill set built through hands-on experience and continuous learning
-          </p>
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-slate-400 max-w-4xl mx-auto leading-relaxed font-medium"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            Comprehensive skill set built through hands-on experience, continuous learning, and real-world project development
+          </motion.p>
         </motion.div>
 
         {/* Stats Overview */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.4 }}
         >
-          <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 text-center">
-            <div className="text-3xl font-bold text-blue-400 mb-2">{skillsData.flatMap(cat => cat.skills).length}</div>
-            <div className="text-gray-400">Technologies</div>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 text-center">
-            <div className="text-3xl font-bold text-cyan-400 mb-2">{totalProjects}</div>
-            <div className="text-gray-400">Projects Built</div>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 text-center">
-            <div className="text-3xl font-bold text-slate-400 mb-2">{averageLevel}%</div>
-            <div className="text-gray-400">Average Proficiency</div>
-          </div>
+          <motion.div 
+            className="group bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-slate-200/10 text-center hover:border-blue-500/30 transition-all duration-300"
+            whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
+          >
+            <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">
+              {skillsData.flatMap(cat => cat.skills).length}
+            </div>
+            <div className="text-slate-400 font-semibold text-lg">Technologies</div>
+            <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mt-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.div>
+          <motion.div 
+            className="group bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-slate-200/10 text-center hover:border-purple-500/30 transition-all duration-300"
+            whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
+          >
+            <div className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-3">
+              {totalProjects}
+            </div>
+            <div className="text-slate-400 font-semibold text-lg">Projects Built</div>
+            <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mt-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.div>
+          <motion.div 
+            className="group bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-slate-200/10 text-center hover:border-slate-500/30 transition-all duration-300"
+            whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
+          >
+            <div className="text-4xl font-bold bg-gradient-to-r from-slate-400 to-slate-300 bg-clip-text text-transparent mb-3">
+              {averageLevel}%
+            </div>
+            <div className="text-slate-400 font-semibold text-lg">Avg Proficiency</div>
+            <div className="w-16 h-1 bg-gradient-to-r from-slate-500 to-slate-400 rounded-full mx-auto mt-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.div>
         </motion.div>
 
         {/* View Mode Toggle */}
         <motion.div
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-12"
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.6 }}
         >
-          <div className="bg-gray-700 p-1 rounded-lg">
+          <div className="bg-white/5 backdrop-blur-sm p-2 rounded-2xl border border-slate-200/10">
             <button
               onClick={() => setViewMode('bars')}
-              className={`px-4 py-2 rounded-md font-medium transition-all ${
+              className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
                 viewMode === 'bars'
-                  ? 'bg-gray-600 text-blue-400 shadow-sm'
-                  : 'text-gray-400'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                  : 'text-slate-400 hover:text-white hover:bg-white/10'
               }`}
             >
               Progress Bars
             </button>
             <button
               onClick={() => setViewMode('cards')}
-              className={`px-4 py-2 rounded-md font-medium transition-all ${
+              className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
                 viewMode === 'cards'
-                  ? 'bg-gray-600 text-blue-400 shadow-sm'
-                  : 'text-gray-400'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                  : 'text-slate-400 hover:text-white hover:bg-white/10'
               }`}
             >
               Skill Cards
@@ -276,14 +308,17 @@ const SkillsVisualization: React.FC = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory + viewMode}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            {...(shouldReduceMotion ? {} : optimizedFadeIn)}
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, staggerChildren: 0.1 }}
           >
             {filteredSkills.map((skill, index) => (
               <SkillBar
                 key={`${skill.name}-${activeCategory}-${viewMode}`}
                 skill={skill}
-                delay={index * 100}
+                delay={index * 150}
               />
             ))}
           </motion.div>
@@ -291,29 +326,55 @@ const SkillsVisualization: React.FC = () => {
 
         {/* Skill Categories Overview */}
         <motion.div
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 1.0 }}
         >
           {skillsData.map((category, index) => (
             <motion.div
               key={category.name}
-              className={`${category.bgColor} p-6 rounded-xl border border-gray-700`}
-              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+              className="group relative bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-slate-200/10 hover:border-blue-500/30 transition-all duration-300 overflow-hidden"
+              whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
               transition={{ delay: index * 0.1 }}
             >
-              <h3 className={`text-xl font-semibold ${category.color} mb-3`}>
-                {category.name}
-              </h3>
-              <div className="space-y-2">
-                {category.skills.map((skill) => (
-                  <div key={skill.name} className="flex items-center justify-between">
-                    <span className="text-gray-700 dark:text-gray-300">{skill.name}</span>
-                    <span className="text-sm font-medium text-gray-400">
-                      {skill.level}%
-                    </span>
-                  </div>
-                ))}
+              {/* Background Gradient */}
+              <div className={`absolute inset-0 ${category.bgColor} opacity-20 group-hover:opacity-40 transition-opacity duration-300`} />
+              
+              <div className="relative z-10">
+                <h3 className={`text-2xl font-bold ${category.color} mb-6 group-hover:scale-105 transition-transform duration-300`}>
+                  {category.name}
+                </h3>
+                <div className="space-y-4">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div 
+                      key={skill.name} 
+                      className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-slate-200/10 group-hover:border-slate-200/20 transition-all duration-300"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: (index * 0.1) + (skillIndex * 0.05) }}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <skill.icon className="w-5 h-5 text-blue-400" />
+                        <span className="text-slate-300 font-medium group-hover:text-white transition-colors duration-300">
+                          {skill.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                          {skill.level}%
+                        </span>
+                        <div className="w-16 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${skill.level}%` }}
+                            transition={{ duration: 1, delay: (index * 0.1) + (skillIndex * 0.05) + 0.5, ease: "easeOut" }}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

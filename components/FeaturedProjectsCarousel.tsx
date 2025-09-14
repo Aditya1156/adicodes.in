@@ -156,9 +156,6 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
         paginate(-1);
       } else if (e.key === 'ArrowRight') {
         paginate(1);
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        setIsAutoPlaying(prev => !prev);
       }
     };
 
@@ -195,45 +192,17 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
   return (
     <section 
       ref={carouselRef}
-      className="relative w-full py-12 overflow-hidden"
+      className="relative w-full py-8 overflow-hidden"
     >
-      {/* Enhanced background with animated particles */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-50/80 via-white/50 to-purple-50/80 dark:from-gray-800/50 dark:via-gray-900/30 dark:to-gray-800/50"></div>
-        
-        {/* Floating particles */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-indigo-400/20 dark:bg-indigo-300/20 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + (i % 3) * 20}%`,
-            }}
-            animate={{
-              y: [-20, 20, -20],
-              x: [-10, 10, -10],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.5,
-            }}
-          />
-        ))}
-      </div>
-
       {/* Enhanced container */}
-      <div className="relative w-full max-w-7xl mx-auto px-4">
+      <div className="relative w-full max-w-5xl mx-auto px-4">
         <motion.div 
-          className="relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl overflow-hidden"
+          className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-gray-600/60 shadow-xl overflow-hidden"
           initial={glowVariants.initial}
           animate={isHovered ? glowVariants.hover : glowVariants.initial}
           whileHover={{ 
-            scale: 1.02,
-            transition: { type: "spring", stiffness: 300, damping: 30 }
+            scale: 1.01,
+            transition: { type: "spring", stiffness: 400, damping: 25 }
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -252,9 +221,9 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
               }}
               className="w-full"
             >
-              <div className="flex flex-col lg:flex-row min-h-[450px]">
+              <div className="flex flex-col lg:flex-row min-h-[320px]">
                 {/* Enhanced Image Section with multiple images */}
-                <div className="w-full lg:w-[65%] relative h-[280px] lg:h-[450px] overflow-hidden">
+                <div className="w-full lg:w-[60%] relative h-[220px] lg:h-[320px] overflow-hidden">
                   {/* Image container with parallax effect */}
                   <motion.div
                     className="relative w-full h-full"
@@ -302,25 +271,6 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                       {project.status}
                     </motion.div>
 
-                    {/* Auto-play indicator */}
-                    <motion.div 
-                      className="absolute top-6 right-6 flex items-center gap-2 px-3 py-2 bg-black/50 backdrop-blur-md rounded-full text-white text-xs"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.7 }}
-                    >
-                      <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-400' : 'bg-red-400'}`}>
-                        {isAutoPlaying && (
-                          <motion.div
-                            className="w-full h-full bg-green-400 rounded-full"
-                            animate={{ opacity: [1, 0.3, 1] }}
-                            transition={{ duration: 1, repeat: Infinity }}
-                          />
-                        )}
-                      </div>
-                      <span>{isAutoPlaying ? 'Auto' : 'Manual'}</span>
-                    </motion.div>
-
                     {/* Image navigation for multiple images */}
                     {project.imageUrls.length > 1 && (
                       <>
@@ -354,17 +304,17 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
 
                 {/* Enhanced Content Section with better typography */}
                 <motion.div 
-                  className="w-full lg:w-[35%] p-8 lg:p-10 flex flex-col justify-center space-y-6 bg-gradient-to-br from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95"
+                  className="w-full lg:w-[40%] p-6 lg:p-8 flex flex-col justify-center space-y-4 bg-gradient-to-br from-slate-50/98 to-gray-100/98 dark:from-gray-800/98 dark:to-gray-700/98"
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
                 >
                   {/* Enhanced title with gradient text */}
                   <motion.h3 
-                    className="text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 dark:from-white dark:via-indigo-300 dark:to-purple-300 leading-tight"
+                    className="text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-800 via-blue-700 to-indigo-700 dark:from-slate-100 dark:via-blue-300 dark:to-indigo-300 leading-tight"
                     variants={itemVariants}
                     whileHover={{
-                      scale: 1.02,
+                      scale: 1.01,
                       transition: { type: "spring", stiffness: 400, damping: 25 }
                     }}
                   >
@@ -373,7 +323,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                   
                   {/* Enhanced description with better typography */}
                   <motion.p 
-                    className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed font-medium"
+                    className="text-slate-600 dark:text-slate-300 text-base leading-relaxed font-medium"
                     variants={itemVariants}
                   >
                     {project.description}
@@ -381,48 +331,48 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
 
                   {/* Enhanced technology tags with better styling */}
                   <motion.div 
-                    className="flex flex-wrap gap-3"
+                    className="flex flex-wrap gap-2"
                     variants={itemVariants}
                   >
-                    {project.tags.slice(0, 5).map((tag, index) => (
+                    {project.tags.slice(0, 4).map((tag, index) => (
                       <motion.span
                         key={index}
-                        className="px-4 py-2 text-sm font-semibold text-indigo-300 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/40 dark:to-purple-900/40 rounded-xl border border-indigo-200/50 dark:border-indigo-700/50 shadow-sm"
+                        className="px-3 py-1.5 text-xs font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200/60 dark:border-blue-700/50 shadow-sm"
                         whileHover={{ 
-                          scale: 1.05, 
-                          y: -2,
-                          boxShadow: "0 8px 25px rgba(99, 102, 241, 0.15)"
+                          scale: 1.03, 
+                          y: -1,
+                          backgroundColor: "rgba(59, 130, 246, 0.1)"
                         }}
-                        whileTap={{ scale: 0.95 }}
+                        whileTap={{ scale: 0.97 }}
                         transition={{ type: "spring", stiffness: 400, damping: 25 }}
                       >
                         {tag}
                       </motion.span>
                     ))}
-                    {project.tags.length > 5 && (
+                    {project.tags.length > 4 && (
                       <motion.span 
-                        className="px-4 py-2 text-sm text-gray-400 bg-gray-800 rounded-xl font-medium"
+                        className="px-3 py-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-lg font-medium"
                         variants={itemVariants}
                       >
-                        +{project.tags.length - 5} more
+                        +{project.tags.length - 4}
                       </motion.span>
                     )}
                   </motion.div>
 
                   {/* Enhanced action buttons with better animations */}
                   <motion.div 
-                    className="flex flex-wrap gap-4"
+                    className="flex flex-wrap gap-3"
                     variants={itemVariants}
                   >
                     <Link 
                       to="/projects" 
-                      className="group relative inline-flex items-center gap-3 px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                      className="group relative inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-200 overflow-hidden"
                     >
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600"
+                        className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600"
                         initial={{ x: "-100%" }}
                         whileHover={{ x: "0%" }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.3 }}
                       />
                       
                       <span className="relative z-10 flex items-center gap-3">
@@ -485,26 +435,26 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
 
                   {/* Project metrics */}
                   <motion.div 
-                    className="flex items-center gap-6 pt-4 border-t border-gray-200/50 dark:border-gray-700/50"
+                    className="flex items-center gap-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60"
                     variants={itemVariants}
                   >
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-indigo-400">{project.tags.length}</div>
-                      <div className="text-xs text-gray-400 font-medium">Technologies</div>
+                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{project.tags.length}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Tech</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-400">{project.imageUrls.length}</div>
-                      <div className="text-xs text-gray-400 font-medium">Screenshots</div>
+                      <div className="text-lg font-bold text-slate-600 dark:text-slate-400">{project.imageUrls.length}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Views</div>
                     </div>
                     <div className="text-center">
-                      <div className={`text-2xl font-bold ${
-                        project.status === 'Deployed' ? 'text-green-400' :
-                        project.status === 'Completed' ? 'text-blue-400' :
-                        'text-yellow-600 dark:text-yellow-400'
+                      <div className={`text-lg font-bold ${
+                        project.status === 'Deployed' ? 'text-green-500 dark:text-green-400' :
+                        project.status === 'Completed' ? 'text-blue-500 dark:text-blue-400' :
+                        'text-amber-600 dark:text-amber-400'
                       }`}>
                         {project.status === 'Deployed' ? '🚀' : project.status === 'Completed' ? '✅' : '🔨'}
                       </div>
-                      <div className="text-xs text-gray-400 font-medium">Status</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Status</div>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -515,84 +465,69 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
           {/* Enhanced Navigation arrows with better positioning */}
           <motion.button
             onClick={() => paginate(-1)}
-            className="absolute top-1/2 -left-6 -translate-y-1/2 bg-white/95 dark:bg-gray-800/95 text-gray-800 dark:text-white p-4 rounded-full shadow-xl hover:shadow-2xl border border-gray-200/50 dark:border-gray-700/50 z-20 backdrop-blur-sm"
+            className="absolute top-1/2 -left-5 -translate-y-1/2 bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-white p-3 rounded-full shadow-lg hover:shadow-xl border border-slate-200/50 dark:border-slate-700/50 z-20 backdrop-blur-sm"
             whileHover={{ 
-              scale: 1.1,
-              x: -5,
+              scale: 1.05,
+              x: -3,
               backgroundColor: "rgba(255, 255, 255, 1)",
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
+              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)"
             }}
-            whileTap={{ scale: 0.9 }}
-            initial={{ opacity: 0, x: -30 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: isInView ? 1 : 0, x: 0 }}
-            transition={{ delay: 0.8, type: "spring", stiffness: 300 }}
+            transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
             aria-label="Previous project"
           >
-            <ChevronLeftIcon className="h-6 w-6" />
+            <ChevronLeftIcon className="h-5 w-5" />
           </motion.button>
 
           <motion.button
             onClick={() => paginate(1)}
-            className="absolute top-1/2 -right-6 -translate-y-1/2 bg-white/95 dark:bg-gray-800/95 text-gray-800 dark:text-white p-4 rounded-full shadow-xl hover:shadow-2xl border border-gray-200/50 dark:border-gray-700/50 z-20 backdrop-blur-sm"
+            className="absolute top-1/2 -right-5 -translate-y-1/2 bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-white p-3 rounded-full shadow-lg hover:shadow-xl border border-slate-200/50 dark:border-slate-700/50 z-20 backdrop-blur-sm"
             whileHover={{ 
-              scale: 1.1,
-              x: 5,
+              scale: 1.05,
+              x: 3,
               backgroundColor: "rgba(255, 255, 255, 1)",
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
+              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)"
             }}
-            whileTap={{ scale: 0.9 }}
-            initial={{ opacity: 0, x: 30 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: isInView ? 1 : 0, x: 0 }}
-            transition={{ delay: 0.8, type: "spring", stiffness: 300 }}
+            transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
             aria-label="Next project"
           >
-            <ChevronRightIcon className="h-6 w-6" />
+            <ChevronRightIcon className="h-5 w-5" />
           </motion.button>
         </motion.div>
 
         {/* Enhanced project indicators with progress bar */}
         <motion.div 
-          className="flex flex-col items-center gap-4 mt-8"
-          initial={{ opacity: 0, y: 20 }}
+          className="flex flex-col items-center gap-3 mt-6"
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: isInView ? 1 : 0, y: 0 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.8 }}
         >
-          {/* Auto-play controls */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/80 dark:bg-gray-800/80 rounded-full border border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all duration-200 backdrop-blur-sm"
-            >
-              <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-500' : 'bg-red-500'}`}></div>
-              {isAutoPlaying ? 'Auto-play ON' : 'Auto-play OFF'}
-            </button>
-            
-            <span className="text-xs text-gray-400">
-              Press spacebar to toggle
-            </span>
-          </div>
-
           {/* Indicators with progress */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {projects.map((_, index) => (
               <motion.button
                 key={index}
                 onClick={() => goToPage(index)}
-                className={`relative h-3 rounded-full transition-all duration-300 ${
+                className={`relative h-2 rounded-full transition-all duration-300 ${
                   page === index 
-                    ? 'bg-indigo-500 w-12 shadow-lg shadow-indigo-500/40' 
-                    : 'bg-gray-300 dark:bg-gray-600 w-3 hover:bg-gray-400 dark:hover:bg-gray-500'
+                    ? 'bg-blue-500 dark:bg-blue-400 w-8 shadow-md shadow-blue-500/30' 
+                    : 'bg-slate-300 dark:bg-slate-600 w-2 hover:bg-slate-400 dark:hover:bg-slate-500'
                 }`}
                 whileHover={{ 
-                  scale: 1.2, 
-                  y: -2,
+                  scale: 1.1, 
+                  y: -1,
                 }}
-                whileTap={{ scale: 0.9 }}
+                whileTap={{ scale: 0.95 }}
                 aria-label={`Go to project ${index + 1}: ${projects[index].title}`}
               >
                 {page === index && isAutoPlaying && (
                   <motion.div
-                    className="absolute inset-0 bg-indigo-400 rounded-full origin-left"
+                    className="absolute inset-0 bg-blue-400 dark:bg-blue-300 rounded-full origin-left"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 5, ease: "linear", repeat: Infinity }}
@@ -601,9 +536,9 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                 
                 {/* Tooltip */}
                 <motion.div
-                  className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded whitespace-nowrap opacity-0 pointer-events-none"
+                  className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-800/90 dark:bg-slate-700/90 text-white text-xs rounded whitespace-nowrap opacity-0 pointer-events-none backdrop-blur-sm"
                   whileHover={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
+                  transition={{ delay: 0.4 }}
                 >
                   {projects[index].title}
                 </motion.div>

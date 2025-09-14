@@ -9,6 +9,7 @@ import FeaturedProjectsCarousel from '../components/FeaturedProjectsCarousel';
 import AnimatedBackground, { FloatingShapes } from '../components/AnimatedBackground';
 import EnhancedTechAnimation from '../components/EnhancedTechAnimation';
 import AtmosphericSmoke from '../components/AtmosphericSmoke';
+import AnimatedLogos from '../components/AnimatedLogos';
 import { PROJECTS } from '../lib/data';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { optimizedFadeIn } from '../lib/optimizedAnimations';
@@ -40,6 +41,9 @@ const HomePage: React.FC = () => {
         
         {/* Enhanced Tech Animation with Smoke Effects */}
         <EnhancedTechAnimation />
+        
+        {/* Animated Floating Logos */}
+        <AnimatedLogos />
         
         {/* Enhanced Hero Section */}
         <div className="relative z-10">
