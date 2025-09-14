@@ -25,6 +25,9 @@ Welcome to my personal portfolio website! I'm **Aditya Kumar**, a passionate Com
 - **Smooth Animations**: Framer Motion powered interactions and transitions
 - **Professional Navbar**: Fixed positioning with real-time status indicators
 - **Interactive Elements**: Hover effects, micro-interactions, and spring animations
+- <img<img width="1189" height="789" alt="Screenshot 2025-09-14 143323" src="https://github.com/user-attachments/assets/9fbb0ddd-3e46-48a3-81d5-9158d7a35405" />
+ width="3375" height="4219" alt="Beige Minimalist Modern New in my Blog Instagram Post" src="https://github.com/user-attachments/assets/bf12db8f-dc76-4c1b-8739-1486f88bcade" />
+
 
 ### 🔧 Technical Features
 - **AI-Powered Chatbot**: Integrated Google Gemini AI for visitor interactions
@@ -219,8 +222,8 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📞 Contact & Connect
 
 - **🌐 Portfolio**: [adicodes.in](https://adicodes.in)
-- **💼 LinkedIn**: [Aditya Kumar](https://linkedin.com/in/aditya-kumar-yourprofile)
-- **📧 Email**: [your.email@domain.com](mailto:your.email@domain.com)
+- **💼 LinkedIn**:in.com/in/aditya-kumar-165911339
+- **📧 Email**: adityaissc7@gmail.com
 - **📱 GitHub**: [Aditya1156](https://github.com/Aditya1156)
 
 ## 🙏 Acknowledgments
