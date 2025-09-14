@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../hooks/useTheme';
-import { SunIcon, MoonIcon, MenuIcon, CloseIcon, LogoIcon } from './icons/UIIcons';
+import { MenuIcon, CloseIcon, LogoIcon } from './icons/UIIcons';
 import { 
   navSlideDown, 
-  mobileMenuVariants, 
-  mobileMenuItemVariants,
-  buttonHover,
-  buttonTap 
+  mobileMenuItemVariants
 } from '../lib/animations';
 
 const NavLinks: React.FC<{className?: string; onClick?: () => void; isMobile?: boolean}> = ({ 
@@ -24,8 +20,8 @@ const NavLinks: React.FC<{className?: string; onClick?: () => void; isMobile?: b
   const linkClasses = ({ isActive }: { isActive: boolean }) => 
     `${baseClasses} ${hoverClasses} ${
       isActive 
-        ? 'bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-600 dark:text-indigo-400 shadow-lg' 
-        : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+        ? 'bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-400 shadow-lg' 
+        : 'text-gray-300 hover:text-indigo-400'
     } ${className || ''}`;
 
   const links = [
@@ -59,15 +55,17 @@ const NavLinks: React.FC<{className?: string; onClick?: () => void; isMobile?: b
       {links.map((link, index) => (
         <motion.div
           key={link.to}
-          variants={isMobile ? mobileMenuItemVariants : undefined}
+          {...(isMobile ? {
+            variants: mobileMenuItemVariants,
+            initial: "hidden",
+            animate: "visible",
+            custom: index
+          } : {})}
           whileHover={getHoverEffect()}
           whileTap={{ 
             scale: 0.98, 
             transition: { duration: 0.1 } 
           }}
-          initial={isMobile ? "hidden" : undefined}
-          animate={isMobile ? "visible" : undefined}
-          custom={index}
         >
           <NavLink 
             to={link.to} 
@@ -76,7 +74,7 @@ const NavLinks: React.FC<{className?: string; onClick?: () => void; isMobile?: b
           >
             <span className="relative z-10">{link.label}</span>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0"
+              className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0"
               whileHover={{ opacity: 0.08 }}
               transition={{ duration: 0.2 }}
             />
@@ -88,7 +86,6 @@ const NavLinks: React.FC<{className?: string; onClick?: () => void; isMobile?: b
 };
 
 const Navbar: React.FC = () => {
-  const [theme, toggleTheme] = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -106,8 +103,8 @@ const Navbar: React.FC = () => {
       <motion.nav
         className={`sticky top-0 z-50 border-b transition-all duration-500 ${
           scrolled 
-            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-gray-200/50 dark:border-gray-700/50 shadow-lg' 
-            : 'bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border-gray-200 dark:border-gray-700'
+            ? 'bg-gray-900/80 backdrop-blur-xl border-gray-700/50 shadow-lg' 
+            : 'bg-gray-800/70 backdrop-blur-lg border-gray-700'
         }`}
         variants={navSlideDown}
         initial="hidden"
@@ -147,10 +144,10 @@ const Navbar: React.FC = () => {
                     }
                   }}
                 >
-                  <LogoIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 transition-all duration-300" />
+                  <LogoIcon className="h-8 w-8 text-blue-400 transition-all duration-300" />
                 </motion.div>
                 <motion.span 
-                  className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent"
+                  className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
                   whileHover={{ 
                     scale: 1.02,
                     transition: { 
@@ -173,80 +170,15 @@ const Navbar: React.FC = () => {
                 animate="visible"
               >
                 <NavLinks />
-                
-                {/* Theme Toggle */}
-                <motion.button
-                  onClick={toggleTheme}
-                  className="p-3 rounded-full bg-gray-100/50 dark:bg-gray-800/50 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition-all duration-300 ml-4"
-                  whileHover={{ 
-                    scale: 1.05,
-                    backgroundColor: "rgba(99, 102, 241, 0.1)",
-                    transition: { 
-                      duration: 0.2,
-                      ease: "easeOut"
-                    }
-                  }}
-                  whileTap={{ 
-                    scale: 0.95,
-                    transition: { duration: 0.1 }
-                  }}
-                  initial={{ rotate: theme === 'dark' ? 180 : 0 }}
-                  animate={{ rotate: theme === 'dark' ? 180 : 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={theme}
-                      initial={{ opacity: 0, rotate: -45, scale: 0.8 }}
-                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                      exit={{ opacity: 0, rotate: 45, scale: 0.8 }}
-                      transition={{ duration: 0.2, ease: "easeInOut" }}
-                    >
-                      {theme === 'light' ? 
-                        <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" /> : 
-                        <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-                      }
-                    </motion.div>
-                  </AnimatePresence>
-                </motion.button>
               </motion.div>
             </div>
 
             {/* Mobile Controls */}
-            <div className="md:hidden flex items-center space-x-2">
-              {/* Mobile Theme Toggle */}
-              <motion.button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-gray-100/50 dark:bg-gray-800/50 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
-                whileHover={{ 
-                  scale: 1.05,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ 
-                  scale: 0.95,
-                  transition: { duration: 0.1 }
-                }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={theme}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    {theme === 'light' ? 
-                      <MoonIcon className="h-5 w-5" /> : 
-                      <SunIcon className="h-5 w-5" />
-                    }
-                  </motion.div>
-                </AnimatePresence>
-              </motion.button>
-
+            <div className="md:hidden">
               {/* Mobile Menu Toggle */}
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-full text-gray-700 dark:text-gray-300 bg-gray-100/50 dark:bg-gray-800/50 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
+                className="p-2 rounded-full text-gray-300 bg-gray-800/50 hover:bg-gray-700/50"
                 whileHover={{ 
                   scale: 1.05,
                   transition: { duration: 0.2 }
@@ -279,7 +211,7 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden border-t border-gray-200/50 dark:border-gray-700/50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl"
+              className="md:hidden border-t border-gray-700/50 bg-gray-900/95 backdrop-blur-xl"
               initial={{ 
                 opacity: 0, 
                 height: 0,

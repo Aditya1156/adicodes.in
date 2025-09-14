@@ -79,7 +79,7 @@ const getStatusBadgeColor = (status: ProjectStatus) => {
         case 'In Progress':
             return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 border-yellow-200 dark:border-yellow-700';
         default:
-            return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600';
+            return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border-gray-600';
     }
 };
 
@@ -188,7 +188,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
         <AnimatePresence>
           {isImageLoading && (
             <motion.div
-              className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center z-10"
+              className="absolute inset-0 bg-gray-700 flex items-center justify-center z-10"
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
@@ -299,7 +299,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
           variants={staggerItem}
         >
           <motion.h3 
-            className="text-xl font-bold text-gray-900 dark:text-white leading-tight"
+            className="text-xl font-bold text-white leading-tight"
             whileHover={{ 
               background: "linear-gradient(135deg, #6366f1, #a855f7, #ec4899)",
               backgroundClip: "text",
@@ -341,7 +341,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
           {project.tags.slice(0, 4).map((tag, index) => (
             <motion.span 
               key={index} 
-              className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-medium px-3 py-1.5 rounded-full border border-indigo-200/50 dark:border-indigo-700/50"
+              className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-300 text-xs font-medium px-3 py-1.5 rounded-full border border-indigo-200/50 dark:border-indigo-700/50"
               custom={index}
               variants={tagVariants}
               whileHover="hover"
@@ -351,7 +351,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
           ))}
           {project.tags.length > 4 && (
             <motion.span 
-              className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1"
+              className="text-xs text-gray-400 px-2 py-1"
               variants={tagVariants}
               custom={4}
             >
@@ -409,7 +409,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
                 e.stopPropagation();
                 trackEvent('Click: Project Repo', { project: project.title, location: 'card' });
               }}
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+              className="text-gray-500 hover:text-white p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
               whileHover={{ 
                 scale: 1.2, 
                 rotate: 15,

@@ -149,13 +149,13 @@ const ContactPage: React.FC = () => {
             animate="visible"
           >
             <motion.h1 
-              className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
+              className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-cyan-600 to-slate-600 bg-clip-text text-transparent"
               variants={fadeInUp}
             >
               Let's Connect! 🚀
             </motion.h1>
             <motion.p 
-              className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+              className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
               variants={fadeInUp}
             >
               Ready to bring your ideas to life? Whether you have a project in mind, want to collaborate, or just say hello - I'm here for it all! ✨
@@ -228,7 +228,7 @@ const ContactPage: React.FC = () => {
                   animate="visible"
                 >
                   <motion.div className="text-center mb-8" variants={fadeInUp}>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <h2 className="text-3xl font-bold text-white mb-4">
                       Send me a message 💬
                     </h2>
                     <p className="text-gray-600 dark:text-gray-400">
@@ -262,7 +262,7 @@ const ContactPage: React.FC = () => {
                           id="name" 
                           required 
                           placeholder="What should I call you?"
-                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" 
+                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400" 
                           onFocus={() => setFocusedField('name')}
                           onBlur={() => setFocusedField(null)}
                           whileFocus={{ 
@@ -292,7 +292,7 @@ const ContactPage: React.FC = () => {
                           id="email" 
                           required 
                           placeholder="your.email@example.com"
-                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" 
+                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400" 
                           onFocus={() => setFocusedField('email')}
                           onBlur={() => setFocusedField(null)}
                           whileFocus={{ 
@@ -323,7 +323,7 @@ const ContactPage: React.FC = () => {
                         rows={6} 
                         required 
                         placeholder="Tell me about your project, ask a question, or just say hello! I'm excited to hear from you..."
-                        className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" 
+                        className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none text-white placeholder-gray-400" 
                         onFocus={() => setFocusedField('message')}
                         onBlur={() => setFocusedField(null)}
                         whileFocus={{ 
@@ -422,7 +422,7 @@ const ContactPage: React.FC = () => {
                   animate="visible"
                 >
                   <motion.div className="text-center mb-8" variants={fadeInUp}>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <h2 className="text-3xl font-bold text-white mb-4">
                       Suggest a Blog Topic 💡
                     </h2>
                     <p className="text-gray-600 dark:text-gray-400">
@@ -447,7 +447,7 @@ const ContactPage: React.FC = () => {
                           id="idea-name" 
                           required 
                           placeholder="What should I call you?"
-                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400"
                           disabled={isSubmitting}
                         />
                       </motion.div>
@@ -463,7 +463,7 @@ const ContactPage: React.FC = () => {
                           id="idea-email" 
                           required 
                           placeholder="your.email@example.com"
-                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400"
                           disabled={isSubmitting}
                         />
                       </motion.div>
@@ -480,7 +480,7 @@ const ContactPage: React.FC = () => {
                         rows={6} 
                         required 
                         placeholder="e.g., A tutorial on Framer Motion with React Router, or tips for building scalable web applications..."
-                        className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none text-white placeholder-gray-400"
                         disabled={isSubmitting}
                       />
                     </motion.div>
@@ -562,7 +562,7 @@ const ContactPage: React.FC = () => {
                   animate="visible"
                 >
                   <motion.div className="text-center mb-12" variants={fadeInUp}>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <h2 className="text-3xl font-bold text-white mb-4">
                       Quick Connect 🔗
                     </h2>
                     <p className="text-gray-600 dark:text-gray-400">
@@ -595,9 +595,9 @@ const ContactPage: React.FC = () => {
                         >
                           <MailIcon className="h-8 w-8" />
                         </motion.div>
-                        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-2">Email</h3>
+                        <h3 className="font-bold text-xl text-white mb-2">Email</h3>
                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">adityaissc7@gmail.com</p>
-                        <p className="text-indigo-600 dark:text-indigo-400 text-sm font-semibold">Send me a message 📧</p>
+                        <p className="text-indigo-400 text-sm font-semibold">Send me a message 📧</p>
                       </div>
                     </motion.a>
 
@@ -624,9 +624,9 @@ const ContactPage: React.FC = () => {
                         >
                           <LinkedinIcon className="h-8 w-8" />
                         </motion.div>
-                        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-2">LinkedIn</h3>
+                        <h3 className="font-bold text-xl text-white mb-2">LinkedIn</h3>
                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Professional Network</p>
-                        <p className="text-blue-600 dark:text-blue-400 text-sm font-semibold">Let's connect! 🤝</p>
+                        <p className="text-blue-400 text-sm font-semibold">Let's connect! 🤝</p>
                       </div>
                     </motion.a>
 
@@ -635,7 +635,7 @@ const ContactPage: React.FC = () => {
                       href={SOCIAL_LINKS.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800/50 dark:to-slate-800/50 border-2 border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 shadow-xl hover:shadow-2xl"
+                      className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800/50 dark:to-slate-800/50 border-2 border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 shadow-xl hover:shadow-2xl"
                       onClick={() => trackEvent('Click: Social (GitHub)', { location: 'contact_page' })}
                       whileHover={{ 
                         scale: 1.03,
@@ -653,7 +653,7 @@ const ContactPage: React.FC = () => {
                         >
                           <GithubIcon className="h-8 w-8" />
                         </motion.div>
-                        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-2">GitHub</h3>
+                        <h3 className="font-bold text-xl text-white mb-2">GitHub</h3>
                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Check out my code</p>
                         <p className="text-gray-700 dark:text-gray-300 text-sm font-semibold">Follow my journey 👨‍💻</p>
                       </div>

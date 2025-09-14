@@ -387,7 +387,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                     {project.tags.slice(0, 5).map((tag, index) => (
                       <motion.span
                         key={index}
-                        className="px-4 py-2 text-sm font-semibold text-indigo-700 dark:text-indigo-300 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/40 dark:to-purple-900/40 rounded-xl border border-indigo-200/50 dark:border-indigo-700/50 shadow-sm"
+                        className="px-4 py-2 text-sm font-semibold text-indigo-300 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/40 dark:to-purple-900/40 rounded-xl border border-indigo-200/50 dark:border-indigo-700/50 shadow-sm"
                         whileHover={{ 
                           scale: 1.05, 
                           y: -2,
@@ -401,7 +401,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                     ))}
                     {project.tags.length > 5 && (
                       <motion.span 
-                        className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-xl font-medium"
+                        className="px-4 py-2 text-sm text-gray-400 bg-gray-800 rounded-xl font-medium"
                         variants={itemVariants}
                       >
                         +{project.tags.length - 5} more
@@ -442,7 +442,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-4 text-base font-semibold text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                          className="inline-flex items-center gap-2 px-6 py-4 text-base font-semibold text-gray-700 dark:text-gray-300 bg-gray-800 rounded-2xl border-2 border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                           whileHover={{ 
                             borderColor: "#6366f1",
                             backgroundColor: "rgba(99, 102, 241, 0.05)",
@@ -464,7 +464,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                           href={project.repoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-4 text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                          className="inline-flex items-center gap-2 px-6 py-4 text-gray-600 dark:text-gray-400 bg-gray-800 rounded-2xl border-2 border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                           whileHover={{ 
                             borderColor: "#6366f1",
                             backgroundColor: "rgba(99, 102, 241, 0.05)",
@@ -489,22 +489,22 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                     variants={itemVariants}
                   >
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{project.tags.length}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">Technologies</div>
+                      <div className="text-2xl font-bold text-indigo-400">{project.tags.length}</div>
+                      <div className="text-xs text-gray-400 font-medium">Technologies</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{project.imageUrls.length}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">Screenshots</div>
+                      <div className="text-2xl font-bold text-purple-400">{project.imageUrls.length}</div>
+                      <div className="text-xs text-gray-400 font-medium">Screenshots</div>
                     </div>
                     <div className="text-center">
                       <div className={`text-2xl font-bold ${
-                        project.status === 'Deployed' ? 'text-green-600 dark:text-green-400' :
-                        project.status === 'Completed' ? 'text-blue-600 dark:text-blue-400' :
+                        project.status === 'Deployed' ? 'text-green-400' :
+                        project.status === 'Completed' ? 'text-blue-400' :
                         'text-yellow-600 dark:text-yellow-400'
                       }`}>
                         {project.status === 'Deployed' ? '🚀' : project.status === 'Completed' ? '✅' : '🔨'}
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">Status</div>
+                      <div className="text-xs text-gray-400 font-medium">Status</div>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -561,13 +561,13 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/80 dark:bg-gray-800/80 rounded-full border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all duration-200 backdrop-blur-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/80 dark:bg-gray-800/80 rounded-full border border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all duration-200 backdrop-blur-sm"
             >
               <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-500' : 'bg-red-500'}`}></div>
               {isAutoPlaying ? 'Auto-play ON' : 'Auto-play OFF'}
             </button>
             
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-gray-400">
               Press spacebar to toggle
             </span>
           </div>

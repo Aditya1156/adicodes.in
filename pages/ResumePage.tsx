@@ -110,14 +110,14 @@ const ResumePage: React.FC = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg">
-              <h4 className="font-semibold text-indigo-600 dark:text-indigo-400 mb-2">Current Focus</h4>
+              <h4 className="font-semibold text-indigo-400 mb-2">Current Focus</h4>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Building scalable web applications with React, TypeScript, and AI integration. 
                 Actively seeking internship opportunities to apply skills in professional environments.
               </p>
             </div>
             <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-4 rounded-lg">
-              <h4 className="font-semibold text-purple-600 dark:text-purple-400 mb-2">Key Strengths</h4>
+              <h4 className="font-semibold text-purple-400 mb-2">Key Strengths</h4>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Strong problem-solving abilities, modern web development expertise, 
                 and experience with AI/ML integration for intelligent user experiences.
@@ -140,8 +140,8 @@ const ResumePage: React.FC = () => {
               transition={{ delay: index * 0.1 }}
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{exp.title}</h3>
-                <span className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">{exp.period}</span>
+                <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
+                <span className="text-sm text-indigo-400 font-medium">{exp.period}</span>
               </div>
               <div className="flex flex-col md:flex-row md:items-center text-gray-600 dark:text-gray-400 mb-3">
                 <span className="font-medium">{exp.company}</span>
@@ -174,12 +174,12 @@ const ResumePage: React.FC = () => {
               transition={{ delay: index * 0.1 }}
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{edu.degree}</h3>
-                <span className="text-sm bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-full">
+                <h3 className="text-lg font-semibold text-white">{edu.degree}</h3>
+                <span className="text-sm bg-indigo-100 dark:bg-indigo-900 text-indigo-300 px-3 py-1 rounded-full">
                   {edu.status}
                 </span>
               </div>
-              <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-1">{edu.institution}</p>
+              <p className="text-indigo-400 font-medium mb-1">{edu.institution}</p>
               <div className="flex flex-col md:flex-row md:items-center text-gray-600 dark:text-gray-400 text-sm">
                 <span className="flex items-center">
                   <MapPinIcon className="w-4 h-4 mr-1" />
@@ -201,17 +201,17 @@ const ResumePage: React.FC = () => {
           {skillCategories.map((category, index) => (
             <motion.div
               key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+              className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700"
               {...(shouldReduceMotion ? {} : optimizedFadeInUp)}
               transition={{ delay: index * 0.1 }}
             >
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{category.category}</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">{category.category}</h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, idx) => (
                   <span
                     key={idx}
                     className="bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 
-                             text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-full text-sm font-medium
+                             text-indigo-300 px-3 py-1 rounded-full text-sm font-medium
                              hover:from-indigo-200 hover:to-purple-200 dark:hover:from-indigo-800/50 dark:hover:to-purple-800/50
                              transition-all duration-200"
                   >
@@ -232,12 +232,12 @@ const ResumePage: React.FC = () => {
           {PROJECTS.slice(0, 3).map((project, index) => (
             <motion.div
               key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+              className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700"
               {...(shouldReduceMotion ? {} : optimizedFadeInUp)}
               transition={{ delay: index * 0.1 }}
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{project.title}</h3>
+                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
                 <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-3 py-1 rounded-full text-sm font-medium">
                   {project.status}
                 </span>
@@ -247,7 +247,7 @@ const ResumePage: React.FC = () => {
                 {project.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs"
+                    className="bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs"
                   >
                     {tag}
                   </span>
@@ -259,7 +259,7 @@ const ResumePage: React.FC = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 text-sm font-medium flex items-center"
+                    className="text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 text-sm font-medium flex items-center"
                   >
                     <GlobeIcon className="w-4 h-4 mr-1" />
                     Live Demo
@@ -336,7 +336,7 @@ const ResumePage: React.FC = () => {
                 href={SOCIAL_LINKS.portfolio}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 border border-indigo-600 text-base font-medium rounded-full text-indigo-600 dark:text-indigo-400 bg-transparent hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
+                className="inline-flex items-center justify-center px-8 py-3 border border-indigo-600 text-base font-medium rounded-full text-indigo-400 bg-transparent hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
               >
                 <GlobeIcon className="w-5 h-5 mr-2" />
                 View Portfolio
@@ -357,7 +357,7 @@ const ResumePage: React.FC = () => {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeSection === section.id
                     ? 'bg-indigo-600 text-white shadow-lg'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    : 'bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-600'
                 }`}
               >
                 {section.title}
@@ -373,9 +373,9 @@ const ResumePage: React.FC = () => {
                   key={section.id}
                   {...(shouldReduceMotion ? {} : optimizedFadeIn)}
                   exit={{ opacity: 0, y: -20 }}
-                  className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700"
+                  className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-700"
                 >
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+                  <h2 className="text-3xl font-bold text-white mb-8 text-center">
                     {section.title}
                   </h2>
                   {section.content}

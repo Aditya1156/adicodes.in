@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ChatbotWidget from './components/ChatbotWidget';
+import PerformanceDashboard from './components/PerformanceDashboard';
 import { usePerformanceMonitor } from './lib/performance';
 
 // Lazy load non-critical pages for better performance
@@ -51,26 +52,36 @@ const App: React.FC = () => {
   return (
     <HashRouter>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/resume" element={<ResumePage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-        <ChatbotWidget />
-      </div>
+      <AppContent />
     </HashRouter>
+  );
+};
+
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  return (
+    <div className="flex flex-col min-h-screen w-full">
+      <Navbar />
+      <main className={`flex-grow ${isHomePage ? 'w-full' : 'container mx-auto px-4 sm:px-6 lg:px-8'} py-8`}>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/resume" element={<ResumePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <Footer />
+      <ChatbotWidget />
+      <PerformanceDashboard />
+    </div>
   );
 };
 

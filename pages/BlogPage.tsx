@@ -64,14 +64,14 @@ const BlogPage: React.FC = () => {
                 to={`/blog/${post.slug}`}
                 className="block p-8 rounded-xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg border border-gray-200/80 dark:border-gray-700/80 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
               >
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                <p className="text-sm text-gray-400 mb-2">
                   {new Date(post.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
                   })}
                 </p>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                <h2 className="text-3xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
                   {post.title}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400">

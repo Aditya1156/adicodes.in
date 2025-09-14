@@ -12,7 +12,7 @@ const ProjectsPage: React.FC = () => {
         keywords="web development, React, TypeScript, AI projects, portfolio"
       />
       
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-12">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <motion.div
@@ -21,7 +21,7 @@ const ProjectsPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-4">
               My Projects
             </h1>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto">
