@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { optimizedFadeIn, optimizedScaleIn } from '../lib/optimizedAnimations';
+import GlowEffect from './GlowEffects';
 
 interface ParticleProps {
   x: number;
@@ -231,7 +232,8 @@ const HeroSection: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedScaleIn)}
           transition={{ delay: 0.1 }}
         >
-          <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6">
+          <GlowEffect type="smoky" color="#60a5fa" intensity="low" animated={!shouldReduceMotion}>
+            <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6">
             {/* Subtle glowing background */}
             <motion.div
               className="absolute inset-0 rounded-full bg-gradient-to-r from-slate-600/15 to-gray-600/15 blur-md"
@@ -401,6 +403,7 @@ const HeroSection: React.FC = () => {
               }}
             />
           </div>
+          </GlowEffect>
         </motion.div>
 
         {/* Greeting */}
@@ -433,22 +436,24 @@ const HeroSection: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedScaleIn)}
           transition={{ delay: 0.4 }}
         >
-          <motion.span
-            className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent"
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{
-              backgroundSize: '200% 200%'
-            }}
-          >
-            Aditya Kumar
-          </motion.span>
+          <GlowEffect type="neon" color="#60a5fa" intensity="medium" animated={!shouldReduceMotion}>
+            <motion.span
+              className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent"
+              animate={{
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{
+                backgroundSize: '200% 200%'
+              }}
+            >
+              Aditya Kumar
+            </motion.span>
+          </GlowEffect>
         </motion.h1>
 
         {/* Dynamic Title with Typewriter Effect */}
@@ -457,16 +462,18 @@ const HeroSection: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
           transition={{ delay: 0.6 }}
         >
-          {shouldReduceMotion ? (
-            <span>Full-Stack Developer & AI Integration Specialist</span>
-          ) : (
-            <Typewriter 
-              text={heroTitles[currentTitleIndex] || "Full-Stack Developer"}
-              key={currentTitleIndex}
-              delay={500}
-              speed={100}
-            />
-          )}
+          <GlowEffect type="pulse" color="#8b5cf6" intensity="low" animated={!shouldReduceMotion}>
+            {shouldReduceMotion ? (
+              <span>Full-Stack Developer & AI Integration Specialist</span>
+            ) : (
+              <Typewriter 
+                text={heroTitles[currentTitleIndex] || "Full-Stack Developer"}
+                key={currentTitleIndex}
+                delay={500}
+                speed={100}
+              />
+            )}
+          </GlowEffect>
         </motion.div>
 
         {/* Description */}
@@ -486,38 +493,42 @@ const HeroSection: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
           transition={{ delay: 1.0 }}
         >
-          <motion.a
-            href="#projects"
-            className="group relative px-8 py-4 bg-gradient-to-r from-slate-700 to-gray-700 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
-            whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-          >
-            <span className="relative z-10">View My Work</span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-gray-600 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
+          <GlowEffect type="electric" color="#3b82f6" intensity="medium" animated={!shouldReduceMotion} interactive={true}>
+            <motion.a
+              href="#projects"
+              className="group relative px-8 py-4 bg-gradient-to-r from-slate-700 to-gray-700 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+            >
+              <span className="relative z-10">View My Work</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-gray-600 to-slate-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.a>
+          </GlowEffect>
 
-          <motion.a
-            href="#contact"
-            className="group px-8 py-4 border-2 border-slate-400 text-slate-300 font-semibold rounded-full hover:bg-slate-400 hover:text-slate-900 transition-all duration-300"
-            whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-          >
-            Get In Touch
-          </motion.a>
+          <GlowEffect type="pulse" color="#8b5cf6" intensity="low" animated={!shouldReduceMotion} interactive={true}>
+            <motion.a
+              href="#contact"
+              className="group px-8 py-4 border-2 border-slate-400 text-slate-300 font-semibold rounded-full hover:bg-slate-400 hover:text-slate-900 transition-all duration-300"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+            >
+              Get In Touch
+            </motion.a>
+          </GlowEffect>
         </motion.div>
       </motion.div>
 
-      {/* Floating Elements - Restored original animations */}
+      {/* Floating Elements - Simplified for better performance */}
       <motion.div
         className="absolute top-20 right-20 w-4 h-4 bg-slate-500 rounded-full opacity-50"
         animate={shouldReduceMotion ? {} : {
-          y: [0, -20, 0], // Restored original range
-          scale: [1, 1.2, 1], // Restored original scale
+          y: [0, -20, 0],
+          scale: [1, 1.2, 1],
         }}
         transition={{
           duration: 4,
@@ -529,8 +540,8 @@ const HeroSection: React.FC = () => {
       <motion.div
         className="absolute bottom-40 left-20 w-6 h-6 border-2 border-gray-500 rotate-45 opacity-30"
         animate={shouldReduceMotion ? {} : {
-          rotate: [45, 225, 45], // Restored original rotation
-          scale: [1, 0.8, 1], // Restored original scale
+          rotate: [45, 225, 45],
+          scale: [1, 0.8, 1],
         }}
         transition={{
           duration: 6,

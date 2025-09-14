@@ -130,12 +130,16 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
     glowVariants: shouldReduceMotion ? {} : glowVariants
   }), [shouldReduceMotion]);
 
-  // Auto-play functionality
+  // Enhanced auto-play functionality with faster transitions
   useEffect(() => {
     if (isAutoPlaying && !isHovered && projects.length > 1) {
       intervalRef.current = setInterval(() => {
-        paginate(1);
-      }, 5000);
+        setPage(([currentPage]) => {
+          const newPage = (currentPage + 1) % projects.length;
+          return [newPage, 1];
+        });
+        setCurrentImageIndex(0);
+      }, 4000); // Faster auto-movement (4 seconds instead of 5)
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -147,7 +151,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
         clearInterval(intervalRef.current);
       }
     };
-  }, [isAutoPlaying, isHovered, page]);
+  }, [isAutoPlaying, isHovered, projects.length]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -530,6 +534,45 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
               </motion.button>
             ))}
           </div>
+          
+          {/* Auto-play controls */}
+          <motion.div 
+            className="flex items-center gap-3 mt-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <motion.button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                isAutoPlaying 
+                  ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30' 
+                  : 'bg-slate-200/50 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400 border border-slate-300/30 dark:border-slate-600/30'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                className={`w-1.5 h-1.5 rounded-full ${
+                  isAutoPlaying ? 'bg-blue-500 dark:bg-blue-400' : 'bg-slate-400 dark:bg-slate-500'
+                }`}
+                animate={isAutoPlaying ? { 
+                  scale: [1, 1.3, 1],
+                  opacity: [0.6, 1, 0.6]
+                } : {}}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              {isAutoPlaying ? 'Auto Playing' : 'Auto Paused'}
+            </motion.button>
+            
+            <div className="text-xs text-slate-500 dark:text-slate-400">
+              {page + 1} / {projects.length}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

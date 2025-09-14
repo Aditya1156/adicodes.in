@@ -14,6 +14,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const GlowEffectsDemo = lazy(() => import('./components/GlowEffectsDemo'));
 
 // Helper component to handle smooth scrolling to top on route change
 const ScrollToTop = () => {
@@ -142,6 +143,7 @@ const AppContent: React.FC = () => {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/glow-demo" element={<GlowEffectsDemo />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

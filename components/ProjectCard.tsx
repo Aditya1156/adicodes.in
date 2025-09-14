@@ -4,6 +4,7 @@ import { Project, ProjectStatus } from '../types';
 import { GithubIcon } from './icons/SocialIcons';
 import { ExternalLinkIcon } from './icons/UIIcons';
 import { trackEvent } from '../lib/analytics';
+import GlowEffect from './GlowEffects';
 
 // Animation variants
 const projectCardVariants = {
@@ -18,15 +19,18 @@ const projectCardVariants = {
 const imageVariants = {
   enter: {
     opacity: 0,
-    scale: 1.1
+    scale: 1.1,
+    x: 50
   },
   center: {
     opacity: 1,
-    scale: 1
+    scale: 1,
+    x: 0
   },
   exit: {
     opacity: 0,
-    scale: 0.9
+    scale: 0.95,
+    x: -50
   }
 };
 
@@ -61,16 +65,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [ripples, setRipples] = useState<Array<{id: number, x: number, y: number}>>([]);
-  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-move images when hovered
+  // Auto-move images continuously with progressive timing
   useEffect(() => {
-    if (project.imageUrls.length > 1 && isHovered) {
+    if (project.imageUrls.length > 1) {
       autoPlayRef.current = setInterval(() => {
         setCurrentImageIndex(prev => (prev + 1) % project.imageUrls.length);
-      }, 2500);
+      }, 2500); // Faster transitions for more dynamic feel
     }
 
     return () => {
@@ -78,16 +81,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [project.imageUrls.length, isHovered]);
+  }, [project.imageUrls.length]);
 
+  // Pause auto-movement on hover for better UX, resume on leave
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+    }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (autoPlayRef.current) {
-      clearInterval(autoPlayRef.current);
+    // Resume auto-movement when not hovered
+    if (project.imageUrls.length > 1) {
+      autoPlayRef.current = setInterval(() => {
+        setCurrentImageIndex(prev => (prev + 1) % project.imageUrls.length);
+      }, 2500);
     }
   };
 
@@ -117,22 +125,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
   };
 
   return (
-    <motion.div 
-      ref={cardRef}
-      layout
-      variants={projectCardVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover={{ 
-        scale: 1.02,
-        y: -8,
-        transition: { type: "spring", stiffness: 300, damping: 20 }
-      }}
-      onClick={handleCardClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="group relative h-72 cursor-pointer overflow-hidden rounded-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
-    >
+    <GlowEffect type="crystalline" color="#60a5fa" intensity="low" animated={true} interactive={true}>
+      <motion.div 
+        ref={cardRef}
+        layout
+        variants={projectCardVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover={{ 
+          scale: 1.02,
+          y: -8,
+          transition: { type: "spring", stiffness: 300, damping: 20 }
+        }}
+        onClick={handleCardClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="group relative h-72 cursor-pointer overflow-hidden rounded-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
+      >
       {/* Ripple effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
         {ripples.map(ripple => (
@@ -186,18 +195,42 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
             key={currentImageIndex}
             className="absolute h-full w-full object-cover"
             src={project.imageUrls[currentImageIndex]}
-            alt={`${project.title} preview`}
+            alt={`${project.title} preview ${currentImageIndex + 1}`}
             variants={imageVariants}
             initial="enter"
             animate="center"
             exit="exit"
             onLoad={() => setIsImageLoading(false)}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
           />
         </AnimatePresence>
         
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        {/* Enhanced gradient overlay with auto-play indicator */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        
+        {/* Auto-play indicator */}
+        {project.imageUrls.length > 1 && (
+          <motion.div
+            className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-full"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <motion.div
+              className="w-1.5 h-1.5 bg-blue-400 rounded-full"
+              animate={{ 
+                scale: [1, 1.3, 1],
+                opacity: [0.6, 1, 0.6]
+              }}
+              transition={{ 
+                duration: 1.5, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <span className="text-xs text-white/80 font-medium">AUTO</span>
+          </motion.div>
+        )}
         
         {/* Status badge */}
         <motion.div
@@ -209,23 +242,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
           {project.status}
         </motion.div>
 
-        {/* Image dots indicator */}
+        {/* Enhanced image dots indicator */}
         {project.imageUrls.length > 1 && (
           <motion.div 
-            className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/30 backdrop-blur-sm px-2 py-1 rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            className="absolute bottom-3 right-3 flex gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-white/10"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
           >
             {project.imageUrls.map((_, index) => (
               <motion.div
                 key={index}
-                className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
-                  currentImageIndex === index ? 'bg-white shadow-sm' : 'bg-white/50'
+                className={`h-1.5 w-1.5 rounded-full transition-all duration-500 ${
+                  currentImageIndex === index 
+                    ? 'bg-blue-400 shadow-sm shadow-blue-400/50' 
+                    : 'bg-white/40'
                 }`}
-                animate={currentImageIndex === index ? { scale: 1.2 } : { scale: 1 }}
+                animate={currentImageIndex === index ? { 
+                  scale: [1, 1.4, 1],
+                  transition: { duration: 0.6, ease: "easeInOut" }
+                } : { scale: 1 }}
               />
             ))}
+            <div className="w-px h-3 bg-white/20 mx-1" />
+            <span className="text-xs text-white/70 font-medium">
+              {currentImageIndex + 1}/{project.imageUrls.length}
+            </span>
           </motion.div>
         )}
       </div>
@@ -297,6 +339,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
         </div>
       </div>
     </motion.div>
+    </GlowEffect>
   );
 };
 

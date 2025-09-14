@@ -590,6 +590,153 @@ export const glowEffect: Variants = {
   },
 };
 
+// Enhanced Glow Effect Variants
+export const neonGlowVariants: Variants = {
+  initial: {
+    filter: "drop-shadow(0 0 8px #00ffff80)",
+    textShadow: "0 0 8px #00ffff",
+  },
+  animate: {
+    filter: [
+      "drop-shadow(0 0 8px #00ffff80)",
+      "drop-shadow(0 0 12px #00ffffcc)",
+      "drop-shadow(0 0 8px #00ffff80)"
+    ],
+    textShadow: [
+      "0 0 8px #00ffff",
+      "0 0 12px #00ffff",
+      "0 0 8px #00ffff"
+    ],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  },
+  hover: {
+    filter: "drop-shadow(0 0 16px #00ffffff)",
+    textShadow: "0 0 16px #00ffff",
+    scale: 1.05,
+    transition: { duration: 0.3 }
+  }
+};
+
+export const pulseGlowVariants: Variants = {
+  animate: {
+    scale: [1, 1.05, 1],
+    opacity: [0.4, 0.9, 0.4],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+      repeatType: "reverse"
+    }
+  }
+};
+
+export const electricGlowVariants: Variants = {
+  initial: {
+    opacity: 0.6,
+    filter: "brightness(1)",
+  },
+  flash: {
+    opacity: [0.6, 1, 0.8, 1, 0.6],
+    filter: [
+      "brightness(1)",
+      "brightness(1.5) contrast(1.2)",
+      "brightness(1)",
+      "brightness(1.3) contrast(1.1)",
+      "brightness(1)"
+    ],
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut"
+    }
+  }
+};
+
+export const rainbowGlowVariants: Variants = {
+  animate: {
+    background: [
+      "conic-gradient(from 0deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)",
+      "conic-gradient(from 60deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)",
+      "conic-gradient(from 120deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)",
+      "conic-gradient(from 180deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)",
+      "conic-gradient(from 240deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)",
+      "conic-gradient(from 300deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)",
+      "conic-gradient(from 360deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000)"
+    ],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "linear"
+    }
+  }
+};
+
+export const auroraGlowVariants: Variants = {
+  animate: {
+    x: ['-100%', '100%'],
+    opacity: [0, 0.6, 0],
+    scale: [0.8, 1.2, 0.8],
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
+export const crystallineGlowVariants: Variants = {
+  animate: {
+    opacity: [0.2, 0.8, 0.2],
+    scale: [0.9, 1.1, 0.9],
+    rotate: [0, 5, -5, 0],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
+export const orbitalGlowVariants: Variants = {
+  animate: {
+    rotate: [0, 360],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "linear"
+    }
+  }
+};
+
+export const particleGlowVariants: Variants = {
+  animate: {
+    y: [0, -20, 0],
+    opacity: [0, 0.8, 0],
+    scale: [0.5, 1, 0.5],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
+export const smokyGlowVariants: Variants = {
+  animate: {
+    scale: [1, 1.1, 1],
+    rotate: [0, 10, 0],
+    opacity: [0.4, 0.6, 0.4],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
 export const magneticHover: Variants = {
   rest: { x: 0, y: 0 },
   hover: {

@@ -14,7 +14,7 @@ import {
 } from '../lib/animations';
 
 // Random success messages with emojis
-const successMessages = [
+const successMessages: string[] = [
   "Message sent successfully! 🚀 I'll get back to you soon! ✨",
   "Your message is on its way! 💌 Thanks for reaching out! 😊",
   "Successfully sent! 🎉 Looking forward to connecting with you! 💫",
@@ -27,7 +27,7 @@ const successMessages = [
   "Delivered successfully! 📬 Your message is precious to me! 💎"
 ];
 
-const ideaMessages = [
+const ideaMessages: string[] = [
   "Amazing idea! 💡 Can't wait to explore this topic! ✨",
   "Your suggestion is brilliant! 🌟 Thanks for the inspiration! 🙏",
   "What a fantastic idea! 🚀 This will make a great post! 📝",
@@ -35,12 +35,14 @@ const ideaMessages = [
   "Brilliant thinking! 🧠 This idea is going straight to my list! 📋"
 ];
 
-const getRandomSuccessMessage = () => {
-  return successMessages[Math.floor(Math.random() * successMessages.length)];
+const getRandomSuccessMessage = (): string => {
+  const index = Math.floor(Math.random() * successMessages.length);
+  return successMessages[index]!;
 };
 
-const getRandomIdeaMessage = () => {
-  return ideaMessages[Math.floor(Math.random() * ideaMessages.length)];
+const getRandomIdeaMessage = (): string => {
+  const index = Math.floor(Math.random() * ideaMessages.length);
+  return ideaMessages[index]!;
 };
 
 const ContactPage: React.FC = () => {

@@ -399,9 +399,9 @@ const ModernCircularCarousel: React.FC<ModernCircularCarouselProps> = ({
                       </motion.div>
                     </div>
 
-                    {/* Action Buttons - Sticky at bottom */}
+                    {/* Action Buttons - Sticky at bottom with reduced spacing */}
                     <motion.div 
-                      className="flex gap-4 mt-8 pt-6 border-t border-slate-700/50 bg-gradient-to-t from-slate-900/90 to-transparent backdrop-blur-sm sticky bottom-0"
+                      className="flex gap-4 mt-6 pt-4 border-t border-slate-700/50 bg-gradient-to-t from-slate-900/95 to-transparent sticky bottom-0"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.7 }}
@@ -423,7 +423,7 @@ const ModernCircularCarousel: React.FC<ModernCircularCarouselProps> = ({
                           href={selectedProject.repoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 bg-slate-700/80 border border-slate-600 text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-slate-600 hover:border-slate-500 transition-all duration-200"
+                          className="flex-1 bg-slate-700 border border-slate-600 text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-slate-600 hover:border-slate-500 transition-all duration-200"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >

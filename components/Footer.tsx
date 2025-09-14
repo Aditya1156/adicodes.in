@@ -189,9 +189,9 @@ const Footer: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Bottom Section */}
+        {/* Bottom Section - Enhanced with better readability */}
         <motion.div
-          className="border-t border-gray-200/50 dark:border-gray-700/50 py-6"
+          className="border-t border-gray-200/50 dark:border-gray-700/50 py-6 bg-gray-50/95 dark:bg-gray-900/95"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -200,17 +200,17 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             {/* Copyright */}
             <motion.div 
-              className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4 text-sm text-gray-500 dark:text-gray-400"
+              className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4 text-sm text-gray-600 dark:text-gray-300"
               variants={fadeInUp}
             >
               <span>&copy; {currentYear} Aditya Kumar. All rights reserved.</span>
               <span className="hidden md:block">|</span>
-              <span>Built with ❤️ </span>
+              <span>Built with ❤️राधे राधे </span>
             </motion.div>
 
             {/* Version/Last Updated */}
             <motion.div 
-              className="text-xs text-gray-400 dark:text-gray-500"
+              className="text-xs text-gray-500 dark:text-gray-400"
               variants={fadeInUp}
             >
               Last updated: {new Date().toLocaleDateString()}

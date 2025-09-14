@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MenuIcon, CloseIcon } from './icons/UIIcons';
 import { GithubIcon, LinkedinIcon, MailIcon } from './icons/SocialIcons';
-import CustomLogo from './CustomLogo';
 import { SOCIAL_LINKS } from '../constants';
 import { 
   navSlideDown, 
@@ -170,7 +169,40 @@ const Navbar: React.FC = () => {
             >
               <NavLink to="/" className="flex items-center gap-4 group">
                 <div className="relative">
-                  <CustomLogo size="md" animated={true} />
+                  {/* Profile Picture as Logo */}
+                  <motion.div
+                    className="w-10 h-10 relative cursor-pointer"
+                    whileHover={{ 
+                      scale: 1.05, 
+                      rotate: [0, -5, 5, 0],
+                      transition: {
+                        duration: 0.6,
+                        ease: "easeInOut"
+                      }
+                    }}
+                  >
+                    <img
+                      src="/images/aditya.jpg" // Your profile picture
+                      alt="Aditya Kumar"
+                      className="w-full h-full object-cover rounded-full border-2 border-blue-400 shadow-lg"
+                      style={{
+                        background: 'linear-gradient(135deg, #1e3a8a, #3b82f6, #06b6d4)',
+                        padding: '2px'
+                      }}
+                    />
+                    
+                    {/* Pulse Effect on Hover */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 opacity-0"
+                      whileHover={{ 
+                        opacity: 0.2, 
+                        scale: 1.2,
+                        transition: { duration: 0.6, ease: "easeOut" }
+                      }}
+                      style={{ filter: 'blur(8px)' }}
+                    />
+                  </motion.div>
+                  
                   {/* Professional status indicator */}
                   <motion.div
                     className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full shadow-lg border-2 border-gray-900"
@@ -209,7 +241,7 @@ const Navbar: React.FC = () => {
                       transition: { duration: 0.2 }
                     }}
                   >
-                       राधे राधे 
+                       FullStack Developer
                   </motion.span>
                 </motion.div>
               </NavLink>

@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+  # push:
+  #   branches: [ main ]  # Commented out to disable auto-deploy
+  workflow_dispatch:  # Only manual deployment via GitHub Actions tab
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
