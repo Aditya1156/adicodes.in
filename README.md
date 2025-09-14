@@ -25,8 +25,8 @@ Welcome to my personal portfolio website! I'm **Aditya Kumar**, a passionate Com
 - **Smooth Animations**: Framer Motion powered interactions and transitions
 - **Professional Navbar**: Fixed positioning with real-time status indicators
 - **Interactive Elements**: Hover effects, micro-interactions, and spring animations
-- <img<img width="1189" height="789" alt="Screenshot 2025-09-14 143323" src="https://github.com/user-attachments/assets/9fbb0ddd-3e46-48a3-81d5-9158d7a35405" />
--<img<img width="3375" height="4219" alt="Beige Minimalist Modern New in my Blog Instagram Post" src="https://github.com/user-attachments/assets/bf12db8f-dc76-4c1b-8739-1486f88bcade" />
+- <img width="1189" height="789" alt="Screenshot 2025-09-14 143323" src="https://github.com/user-attachments/assets/9fbb0ddd-3e46-48a3-81d5-9158d7a35405" />
+-<img width="3375" height="4219" alt="Beige Minimalist Modern New in my Blog Instagram Post" src="https://github.com/user-attachments/assets/bf12db8f-dc76-4c1b-8739-1486f88bcade" />
 
 
 ### 🔧 Technical Features
