@@ -129,8 +129,9 @@ const ParticleField: React.FC = () => {
 
 const HeroSection: React.FC = () => {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  // Restore scroll transform but with safer bounds to prevent image clipping
+  const y = useTransform(scrollY, [0, 500], [0, 100]); // Restored movement but kept safe
+  const opacity = useTransform(scrollY, [0, 400], [1, 0.1]); // Slower fade, don't fully disappear
   const shouldReduceMotion = useReducedMotion();
 
   const heroTitles = [
@@ -153,11 +154,11 @@ const HeroSection: React.FC = () => {
   }, [shouldReduceMotion, heroTitles.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 pb-10">
       {/* Particle Background - Using more intense variant for hero */}
       <ParticleField />
       
-      {/* Background Gradient Orbs - More prominent for hero */}
+      {/* Background Gradient Orbs - Restored animations */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-slate-500/20 to-gray-500/20 rounded-full blur-3xl"
         animate={{
@@ -186,13 +187,21 @@ const HeroSection: React.FC = () => {
           ease: "easeInOut",
           delay: 2
         }}
-        style={shouldReduceMotion ? {} : { y: useTransform(scrollY, [0, 500], [0, -100]), opacity }}
+        style={shouldReduceMotion ? {} : { y: useTransform(scrollY, [0, 500], [0, -80]), opacity }}
       />
 
-      {/* Main Content */}
+      {/* Main Content - Restored scroll effects with waving animation */}
       <motion.div
         className="relative z-10 text-center px-6 max-w-5xl mx-auto"
         style={shouldReduceMotion ? {} : { y, opacity }}
+        animate={shouldReduceMotion ? {} : {
+          y: [0, -8, 0], // Gentle waving motion when static
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
         {...(shouldReduceMotion ? {} : optimizedFadeIn)}
       >
         {/* Profile Image */}
@@ -294,7 +303,7 @@ const HeroSection: React.FC = () => {
             <span>Full-Stack Developer & AI Integration Specialist</span>
           ) : (
             <Typewriter 
-              text={heroTitles[currentTitleIndex] ?? heroTitles[0]}
+              text={heroTitles[currentTitleIndex] || "Full-Stack Developer"}
               key={currentTitleIndex}
               delay={500}
               speed={100}
@@ -313,9 +322,9 @@ const HeroSection: React.FC = () => {
           exciting internship opportunities.
         </motion.p>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - Improved spacing and visual hierarchy */}
         <motion.div 
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
           transition={{ delay: 1.0 }}
         >
@@ -344,29 +353,29 @@ const HeroSection: React.FC = () => {
           </motion.a>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Better positioned and aligned */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+          animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }} // Slightly reduced animation
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
         >
-          <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center">
+          <div className="w-5 h-8 border-2 border-slate-400/60 rounded-full flex justify-center items-start pt-1.5 backdrop-blur-sm bg-slate-900/20">
             <motion.div
-              className="w-1 h-3 bg-slate-400 rounded-full mt-2"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="w-0.5 h-2 bg-slate-300 rounded-full"
+              animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             />
           </div>
         </motion.div>
       </motion.div>
 
-      {/* Floating Elements */}
+      {/* Floating Elements - Restored original animations */}
       <motion.div
         className="absolute top-20 right-20 w-4 h-4 bg-slate-500 rounded-full opacity-50"
-        animate={{
-          y: [0, -20, 0],
-          scale: [1, 1.2, 1],
+        animate={shouldReduceMotion ? {} : {
+          y: [0, -20, 0], // Restored original range
+          scale: [1, 1.2, 1], // Restored original scale
         }}
         transition={{
           duration: 4,
@@ -377,9 +386,9 @@ const HeroSection: React.FC = () => {
       
       <motion.div
         className="absolute bottom-40 left-20 w-6 h-6 border-2 border-gray-500 rotate-45 opacity-30"
-        animate={{
-          rotate: [45, 225, 45],
-          scale: [1, 0.8, 1],
+        animate={shouldReduceMotion ? {} : {
+          rotate: [45, 225, 45], // Restored original rotation
+          scale: [1, 0.8, 1], // Restored original scale
         }}
         transition={{
           duration: 6,

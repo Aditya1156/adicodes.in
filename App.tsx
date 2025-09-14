@@ -5,8 +5,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ChatbotWidget from './components/ChatbotWidget';
-import PerformanceDashboard from './components/PerformanceDashboard';
-import { usePerformanceMonitor } from './lib/performance';
 
 // Lazy load non-critical pages for better performance
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -46,9 +44,6 @@ const PageLoader = () => (
 );
 
 const App: React.FC = () => {
-  // Initialize performance monitoring
-  usePerformanceMonitor();
-
   return (
     <HashRouter>
       <ScrollToTop />
@@ -80,7 +75,6 @@ const AppContent: React.FC = () => {
       </main>
       <Footer />
       <ChatbotWidget />
-      <PerformanceDashboard />
     </div>
   );
 };
