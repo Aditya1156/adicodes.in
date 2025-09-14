@@ -5,7 +5,7 @@
 /* Global Scroll Enhancements */
 :root {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
+  scroll-padding-top: 5rem; /* Account for fixed navbar height */
 }
 
 /* Enhanced Custom Scrollbar */
@@ -48,22 +48,21 @@ html {
 }
 
 /* Enhanced body styles for better scrolling */
-body {
+html {
   overflow-x: hidden;
-  overflow-y: auto !important; /* Always allow vertical scrolling */
+  overflow-y: auto;
+}
+
+body {
+  overflow: hidden;
   line-height: 1.6;
 }
 
-/* Prevent horizontal scroll issues but always allow vertical */
-html, body {
-  max-width: 100vw;
+/* Make root scrollable instead */
+#root {
+  overflow-y: auto;
   overflow-x: hidden;
-  overflow-y: auto !important; /* Force vertical scroll availability */
-}
-
-/* Ensure no components can block scrolling */
-body.modal-open {
-  overflow-y: auto !important; /* Force scrolling even with modals */
+  height: 100vh;
 }
 
 /* Enhanced focus styles for accessibility */

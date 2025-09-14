@@ -40,11 +40,32 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, delay = 0, speed = 50 }) 
 
   return (
     <span className="relative">
-      {displayText}
       <motion.span
-        className="inline-block w-0.5 h-8 bg-blue-500 ml-1"
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+        className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+        animate={{
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        style={{
+          backgroundSize: '200% 200%'
+        }}
+      >
+        {displayText}
+      </motion.span>
+      <motion.span
+        className="inline-block w-0.5 h-8 ml-1"
+        animate={{ 
+          opacity: [1, 0],
+          backgroundColor: ['#3b82f6', '#8b5cf6', '#ec4899', '#3b82f6']
+        }}
+        transition={{ 
+          opacity: { duration: 0.8, repeat: Infinity, repeatType: 'reverse' },
+          backgroundColor: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+        }}
       />
     </span>
   );
@@ -233,14 +254,121 @@ const HeroSection: React.FC = () => {
                 transition: { duration: 0.3 }
               }}
             >
-              <div className="w-full h-full rounded-full bg-slate-900 p-1 shadow-2xl">
+              {/* Smoky Glow Effects */}
+              <motion.div
+                className="absolute -inset-8 rounded-full bg-gradient-to-r from-indigo-500/20 via-purple-500/15 to-cyan-500/20 blur-2xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                  rotate: [0, 180, 360],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              
+              <motion.div
+                className="absolute -inset-6 rounded-full bg-gradient-to-r from-purple-500/25 via-pink-500/20 to-indigo-500/25 blur-xl"
+                animate={{
+                  scale: [1.1, 0.9, 1.1],
+                  opacity: [0.4, 0.7, 0.4],
+                  rotate: [360, 180, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+              />
+              
+              <motion.div
+                className="absolute -inset-4 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/25 to-purple-400/30 blur-lg"
+                animate={{
+                  scale: [0.9, 1.3, 0.9],
+                  opacity: [0.5, 0.8, 0.5],
+                  rotate: [0, -180, -360],
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2,
+                }}
+              />
+              
+              {/* Floating particles */}
+              <motion.div
+                className="absolute -inset-12 pointer-events-none"
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-60"
+                    style={{
+                      top: `${Math.sin((i * Math.PI * 2) / 6) * 40 + 50}%`,
+                      left: `${Math.cos((i * Math.PI * 2) / 6) * 40 + 50}%`,
+                    }}
+                    animate={{
+                      scale: [1, 2, 1],
+                      opacity: [0.3, 0.8, 0.3],
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.5,
+                    }}
+                  />
+                ))}
+              </motion.div>
+              
+              <div className="relative w-full h-full rounded-full bg-slate-900 p-1 shadow-2xl overflow-hidden">
+                {/* Inner glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10"
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                
                 <motion.img
                   src="/images/aditya.jpg"
                   alt="Aditya Kumar"
-                  className="w-full h-full object-cover rounded-full"
+                  className="relative z-10 w-full h-full object-cover rounded-full"
                   whileHover={shouldReduceMotion ? {} : {
                     scale: 1.05,
                     transition: { duration: 0.3 }
+                  }}
+                />
+                
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                  animate={{
+                    x: ['-100%', '100%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    repeatDelay: 2,
                   }}
                 />
               </div>
@@ -277,20 +405,50 @@ const HeroSection: React.FC = () => {
 
         {/* Greeting */}
         <motion.p 
-          className="text-lg md:text-xl text-slate-300 font-medium mb-4"
+          className="text-lg md:text-xl font-medium mb-4"
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
           transition={{ delay: 0.2 }}
         >
-          Hello, I'm
+          <motion.span
+            className="bg-gradient-to-r from-slate-300 via-blue-300 to-purple-300 bg-clip-text text-transparent"
+            animate={{
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{
+              backgroundSize: '200% 200%'
+            }}
+          >
+            Hello, I'm
+          </motion.span>
         </motion.p>
 
         {/* Name */}
         <motion.h1 
-          className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-slate-100 to-gray-100 bg-clip-text text-transparent"
+          className="text-4xl md:text-7xl font-bold mb-6 leading-tight md:leading-none py-2"
           {...(shouldReduceMotion ? {} : optimizedScaleIn)}
           transition={{ delay: 0.4 }}
         >
-          Aditya Kumar
+          <motion.span
+            className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent"
+            animate={{
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{
+              backgroundSize: '200% 200%'
+            }}
+          >
+            Aditya Kumar
+          </motion.span>
         </motion.h1>
 
         {/* Dynamic Title with Typewriter Effect */}
@@ -351,22 +509,6 @@ const HeroSection: React.FC = () => {
           >
             Get In Touch
           </motion.a>
-        </motion.div>
-
-        {/* Scroll Indicator - Better positioned and aligned */}
-        <motion.div
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
-          animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }} // Slightly reduced animation
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          {...(shouldReduceMotion ? {} : optimizedFadeIn)}
-        >
-          <div className="w-5 h-8 border-2 border-slate-400/60 rounded-full flex justify-center items-start pt-1.5 backdrop-blur-sm bg-slate-900/20">
-            <motion.div
-              className="w-0.5 h-2 bg-slate-300 rounded-full"
-              animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
         </motion.div>
       </motion.div>
 

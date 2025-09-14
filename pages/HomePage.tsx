@@ -9,8 +9,7 @@ import FeaturedProjectsCarousel from '../components/FeaturedProjectsCarousel';
 import AnimatedBackground, { FloatingShapes } from '../components/AnimatedBackground';
 import EnhancedTechAnimation from '../components/EnhancedTechAnimation';
 import AtmosphericSmoke from '../components/AtmosphericSmoke';
-import AnimatedLogos from '../components/AnimatedLogos';
-import { ScrollNavigation, ScrollFadeIn, ParallaxSection } from '../components/ScrollUtils';
+import { ScrollFadeIn, ParallaxSection } from '../components/ScrollUtils';
 import { PROJECTS } from '../lib/data';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { optimizedFadeIn } from '../lib/optimizedAnimations';
@@ -27,12 +26,9 @@ const HomePage: React.FC = () => {
         keywords="Aditya Kumar, Portfolio, Full-Stack Developer, React, TypeScript, AI Integration, Web Developer, Computer Science Student, MERN Stack"
       />
       
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-gray-950 to-slate-900 min-h-screen w-full">
+      <div className="relative bg-gradient-to-br from-slate-950 via-gray-950 to-slate-900 min-h-screen w-full">
         {/* Solid Background Fill to eliminate any gaps */}
         <div className="fixed inset-0 w-full h-full bg-gradient-to-br from-slate-950 via-gray-950 to-slate-900 z-[-1]" />
-        
-        {/* Scroll Navigation */}
-        <ScrollNavigation />
         
         {/* Full-Page Animated Background with Enhanced Geometric Shapes */}
         <ParallaxSection speed={0.3}>
@@ -52,11 +48,6 @@ const HomePage: React.FC = () => {
         {/* Enhanced Tech Animation with Smoke Effects */}
         <ParallaxSection speed={0.1}>
           <EnhancedTechAnimation />
-        </ParallaxSection>
-        
-        {/* Animated Floating Logos */}
-        <ParallaxSection speed={0.25}>
-          <AnimatedLogos />
         </ParallaxSection>
         
         {/* Enhanced Hero Section */}

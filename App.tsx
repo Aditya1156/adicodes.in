@@ -128,10 +128,11 @@ const AppContent: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <div className="flex flex-col h-full w-full">
       <ScrollProgressIndicator />
       <Navbar />
-      <main className={`flex-grow ${isHomePage ? 'w-full' : 'container mx-auto px-4 sm:px-6 lg:px-8'} py-8`}>
+      {/* Add proper spacing for fixed navbar */}
+      <main className={`flex-grow pt-20 ${isHomePage ? 'w-full' : 'container mx-auto px-4 sm:px-6 lg:px-8'} ${isHomePage ? 'py-0' : 'py-8'}`}>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

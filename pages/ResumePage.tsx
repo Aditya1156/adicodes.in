@@ -338,15 +338,6 @@ const ResumePage: React.FC = () => {
                 <DownloadIcon className="w-5 h-5 mr-2" />
                 Print Resume
               </motion.button>
-              <a
-                href={SOCIAL_LINKS.portfolio}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 border border-indigo-600 text-base font-medium rounded-full text-indigo-400 bg-transparent hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
-              >
-                <GlobeIcon className="w-5 h-5 mr-2" />
-                View Portfolio
-              </a>
             </div>
           </motion.div>
 

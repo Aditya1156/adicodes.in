@@ -289,7 +289,7 @@ const AboutPage: React.FC = () => {
                               <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                           </div>
                       </div>
-                      <div className="ml-20 md:ml-0 text-center mt-4">
+                      <div className="ml-20 md:ml-0 text-center mt-4" style={{ marginTop: 'calc(1rem + 133px)' }}>
                           <span className="text-lg font-semibold text-gray-500 dark:text-gray-400">
                               To be continued...
                           </span>

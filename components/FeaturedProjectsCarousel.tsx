@@ -179,13 +179,6 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
     setTimeout(() => setIsAutoPlaying(true), 3000);
   }, [page]);
 
-  const handleImageCycle = useCallback(() => {
-    const project = projects[page];
-    if (project && project.imageUrls.length > 1) {
-      setCurrentImageIndex(prev => (prev + 1) % project.imageUrls.length);
-    }
-  }, [projects, page]);
-
   const project = projects[page];
   if (!project) return null;
 
@@ -256,12 +249,12 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
               }}
               className="w-full"
             >
-              <div className="flex flex-col lg:flex-row min-h-[320px]">
+              <div className="flex flex-col lg:flex-row min-h-[447px] gap-0">
                 {/* Enhanced Image Section */}
-                <div className="w-full lg:w-[60%] relative h-[220px] lg:h-[320px] overflow-hidden">
-                  {/* Image container */}
+                <div className="w-full lg:w-[594px] relative h-[447px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 overflow-hidden flex-shrink-0">
+                  {/* Image container with perfect centering */}
                   <motion.div
-                    className="relative w-full h-full"
+                    className="absolute inset-0 flex items-center justify-center p-4"
                     variants={imageVariants}
                     initial="hidden"
                     animate="visible"
@@ -270,9 +263,9 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                       key={`${page}-${currentImageIndex}`}
                       src={project.imageUrls[currentImageIndex] || project.imageUrls[0]}
                       alt={`${project.title} - Image ${currentImageIndex + 1}`}
-                      className="w-full h-full object-cover transition-all duration-1000"
+                      className="max-w-full max-h-full object-contain rounded-lg shadow-lg transition-all duration-1000"
                       animate={{
-                        scale: isHovered ? 1.1 : 1,
+                        scale: isHovered ? 1.05 : 1,
                         filter: isHovered 
                           ? "brightness(1.1) contrast(1.1) saturate(1.2)" 
                           : "brightness(1) contrast(1.05) saturate(1.1)"
@@ -280,18 +273,18 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                       transition={{ duration: 0.8, ease: "easeOut" }}
                     />
 
-                    {/* Dynamic gradient overlay based on project status */}
-                    <div className={`absolute inset-0 ${
+                    {/* Dynamic gradient overlay - positioned behind image */}
+                    <div className={`absolute inset-0 z-0 ${
                       project.status === 'Deployed' 
-                        ? 'bg-gradient-to-t from-green-900/60 via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-green-900/10 lg:to-green-900/40'
+                        ? 'bg-gradient-to-t from-green-900/30 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-green-900/5 lg:to-green-900/20'
                         : project.status === 'Completed'
-                        ? 'bg-gradient-to-t from-blue-900/60 via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-blue-900/10 lg:to-blue-900/40'
-                        : 'bg-gradient-to-t from-purple-900/60 via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-purple-900/10 lg:to-purple-900/40'
+                        ? 'bg-gradient-to-t from-blue-900/30 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-blue-900/5 lg:to-blue-900/20'
+                        : 'bg-gradient-to-t from-purple-900/30 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-purple-900/5 lg:to-purple-900/20'
                     }`}></div>
 
-                    {/* Enhanced status badge with animation */}
+                    {/* Enhanced status badge with better positioning */}
                     <motion.div
-                      className={`absolute top-6 left-6 px-4 py-2 rounded-full text-sm font-bold backdrop-blur-md border ${
+                      className={`absolute top-4 left-4 z-20 px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border ${
                         project.status === 'Deployed' 
                           ? 'bg-green-500/95 text-white border-green-400/50 shadow-lg shadow-green-500/30'
                           : project.status === 'Completed'
@@ -309,24 +302,16 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                     {/* Image navigation for multiple images */}
                     {project.imageUrls.length > 1 && (
                       <>
-                        <button
-                          onClick={handleImageCycle}
-                          className="absolute bottom-6 right-6 bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2 rounded-full shadow-lg hover:scale-110 hover:shadow-blue-500/20 hover:shadow-xl transition-all duration-200"
-                          aria-label="Next image"
-                        >
-                          <ChevronRightIcon className="h-4 w-4" />
-                        </button>
-
-                        {/* Image indicators */}
-                        <div className="absolute bottom-6 left-6 flex gap-1">
+                        {/* Image indicators with better positioning */}
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
                           {project.imageUrls.map((_, index) => (
                             <button
                               key={index}
                               onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 transform hover:scale-150 hover:-translate-y-1 ${
                                 index === currentImageIndex 
-                                  ? 'bg-white shadow-lg' 
-                                  : 'bg-white/50 hover:bg-white/80'
+                                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg shadow-blue-500/50 scale-125' 
+                                  : 'bg-white/80 backdrop-blur-sm hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-500 hover:shadow-md hover:shadow-blue-400/30'
                               }`}
                               aria-label={`View image ${index + 1}`}
                             />
@@ -337,9 +322,9 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                   </motion.div>
                 </div>
 
-                {/* Enhanced Content Section - Properly aligned right side */}
+                {/* Enhanced Content Section - Adjusted for fixed image width */}
                 <motion.div 
-                  className="w-full lg:w-[40%] p-6 lg:p-8 flex flex-col justify-center space-y-4 bg-gradient-to-br from-slate-50/98 to-gray-100/98 dark:from-gray-800/98 dark:to-gray-700/98"
+                  className="w-full lg:flex-1 p-6 lg:p-8 flex flex-col justify-center space-y-4 bg-gradient-to-br from-slate-50/98 to-gray-100/98 dark:from-gray-800/98 dark:to-gray-700/98 min-h-[447px]"
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"

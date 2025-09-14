@@ -259,49 +259,57 @@ const TimelineDetails: React.FC<{ event: TimelineEvent; onClose: () => void }> =
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
+      style={{ 
+        paddingTop: '2rem',
+        paddingBottom: '2rem'
+      }}
     >
       <motion.div
-        className="bg-gray-800 rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl"
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        className="bg-gray-800 rounded-xl p-6 max-w-lg w-full my-auto shadow-2xl relative"
+        initial={{ opacity: 0, scale: 0.9, y: 50 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        exit={{ opacity: 0, scale: 0.9, y: 50 }}
         onClick={(e) => e.stopPropagation()}
+        style={{
+          maxHeight: 'calc(100vh - 4rem)',
+          overflowY: 'auto'
+        }}
       >
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-indigo-900/50 rounded-full flex items-center justify-center text-2xl">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-indigo-900/50 rounded-full flex items-center justify-center text-xl">
               {event.icon}
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">{event.title}</h2>
-              <p className="text-indigo-400 font-semibold">{event.year}</p>
+              <h2 className="text-xl font-bold text-white">{event.title}</h2>
+              <p className="text-indigo-400 font-semibold text-sm">{event.year}</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+            className="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
           >
             ✕
           </button>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
+        <p className="text-gray-600 dark:text-gray-400 mb-4 text-base leading-relaxed">
           {event.description}
         </p>
 
         {event.technologies && (
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-white mb-3">Technologies Used</h3>
-            <div className="flex flex-wrap gap-3">
+          <div className="mb-4">
+            <h3 className="text-base font-semibold text-white mb-2">Technologies Used</h3>
+            <div className="flex flex-wrap gap-2">
               {event.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 text-indigo-300 rounded-full font-medium"
+                  className="px-3 py-1 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 text-indigo-300 rounded-full font-medium text-sm"
                 >
                   {tech}
                 </span>
@@ -312,17 +320,17 @@ const TimelineDetails: React.FC<{ event: TimelineEvent; onClose: () => void }> =
 
         {event.details && (
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">Key Highlights</h3>
-            <ul className="space-y-3">
+            <h3 className="text-base font-semibold text-white mb-2">Key Highlights</h3>
+            <ul className="space-y-2">
               {event.details.map((detail, index) => (
                 <motion.li
                   key={index}
-                  className="flex items-start space-x-3"
+                  className="flex items-start space-x-2"
                   {...(shouldReduceMotion ? {} : optimizedSlideIn)}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <span className="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-gray-700 dark:text-gray-300">{detail}</span>
+                  <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300 text-sm">{detail}</span>
                 </motion.li>
               ))}
             </ul>
@@ -433,29 +441,29 @@ const InteractiveTimeline: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedFadeIn)}
           transition={{ delay: 0.6 }}
         >
-          <div className="text-center p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-            <div className="text-3xl font-bold text-blue-400 mb-2">
+          <div className="text-center p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/40 cursor-pointer group">
+            <div className="text-3xl font-bold text-blue-400 mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors duration-300">
               {timelineData.filter(e => e.type === 'education').length}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Education Milestones</div>
+            <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Education Milestones</div>
           </div>
-          <div className="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
-            <div className="text-3xl font-bold text-green-400 mb-2">
+          <div className="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-green-500/20 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/40 cursor-pointer group">
+            <div className="text-3xl font-bold text-green-400 mb-2 group-hover:text-green-500 dark:group-hover:text-green-300 transition-colors duration-300">
               {timelineData.filter(e => e.type === 'project').length}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Major Projects</div>
+            <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Major Projects</div>
           </div>
-          <div className="text-center p-6 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
-            <div className="text-3xl font-bold text-purple-400 mb-2">
+          <div className="text-center p-6 bg-purple-50 dark:bg-purple-900/20 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 hover:scale-105 hover:bg-purple-100 dark:hover:bg-purple-900/40 cursor-pointer group">
+            <div className="text-3xl font-bold text-purple-400 mb-2 group-hover:text-purple-500 dark:group-hover:text-purple-300 transition-colors duration-300">
               {timelineData.filter(e => e.type === 'achievement').length}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Key Achievements</div>
+            <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Key Achievements</div>
           </div>
-          <div className="text-center p-6 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
-            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
+          <div className="text-center p-6 bg-orange-50 dark:bg-orange-900/20 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/20 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900/40 cursor-pointer group">
+            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2 group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors duration-300">
               {timelineData.filter(e => e.status === 'completed').length}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Completed Goals</div>
+            <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Completed Goals</div>
           </div>
         </motion.div>
       </div>
