@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ChatbotWidget from './components/ChatbotWidget';
+import LoadingScreen from './components/LoadingScreen';
 
 // Lazy load non-critical pages for better performance
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -108,11 +109,20 @@ const PageLoader = () => (
 );
 
 const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
-    <HashRouter>
-      <ScrollToTop />
-      <AppContent />
-    </HashRouter>
+    <>
+      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      <HashRouter>
+        <ScrollToTop />
+        <AppContent />
+      </HashRouter>
+    </>
   );
 };
 
