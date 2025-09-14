@@ -8,9 +8,24 @@ interface LoadingScreenProps {
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
-    const duration = 3000; // 3 seconds loading time
+    // Prevent scroll during loading
+    document.body.style.overflow = 'hidden';
+    
+    const duration = isMobile ? 2500 : 3000; // Shorter duration on mobile
     const steps = 100;
     const stepDuration = duration / steps;
 
@@ -19,79 +34,102 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
           setIsComplete(true);
+          // Restore scroll
+          document.body.style.overflow = 'unset';
+          
+          // Shorter delay on mobile to reduce flickering
           setTimeout(() => {
             onComplete();
-          }, 500); // Small delay before hiding
+          }, isMobile ? 200 : 500);
           return 100;
         }
         return prev + 1;
       });
     }, stepDuration);
 
-    return () => clearInterval(progressInterval);
-  }, [onComplete]);
+    return () => {
+      clearInterval(progressInterval);
+      // Ensure scroll is restored on cleanup
+      document.body.style.overflow = 'unset';
+    };
+  }, [onComplete, isMobile]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {!isComplete && (
         <motion.div
-          className="fixed inset-0 z-[9999] bg-gradient-to-br from-gray-900 via-slate-900 to-black flex items-center justify-center"
+          className="fixed inset-0 z-[9999] bg-gradient-to-br from-gray-900 via-slate-900 to-black flex items-center justify-center touch-none"
+          style={{ 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100vh',
+            minHeight: '-webkit-fill-available'
+          }}
           initial={{ opacity: 1 }}
           exit={{ 
             opacity: 0,
-            scale: 1.1,
-            transition: { duration: 0.8, ease: "easeInOut" }
+            scale: isMobile ? 1 : 1.1,
+            transition: { 
+              duration: isMobile ? 0.4 : 0.8, 
+              ease: "easeInOut" 
+            }
           }}
         >
-          {/* Enhanced Background Animation */}
+          {/* Enhanced Background Animation - Optimized for Mobile */}
           <div className="absolute inset-0 overflow-hidden">
-            {/* Animated Background Orbs */}
+            {/* Animated Background Orbs - Reduced complexity on mobile */}
             <motion.div
-              className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+              className={`absolute top-1/4 left-1/4 ${isMobile ? 'w-64 h-64' : 'w-96 h-96'} bg-blue-500/10 rounded-full blur-3xl`}
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.6, 0.3],
-                x: [0, 50, 0],
-                y: [0, -30, 0],
+                x: isMobile ? [0, 25, 0] : [0, 50, 0],
+                y: isMobile ? [0, -15, 0] : [0, -30, 0],
               }}
               transition={{
-                duration: 6,
+                duration: isMobile ? 4 : 6,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             />
             <motion.div
-              className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+              className={`absolute bottom-1/4 right-1/4 ${isMobile ? 'w-48 h-48' : 'w-80 h-80'} bg-purple-500/10 rounded-full blur-3xl`}
               animate={{
                 scale: [1.2, 1, 1.2],
                 opacity: [0.4, 0.7, 0.4],
-                x: [0, -40, 0],
-                y: [0, 40, 0],
+                x: isMobile ? [0, -20, 0] : [0, -40, 0],
+                y: isMobile ? [0, 20, 0] : [0, 40, 0],
               }}
               transition={{
-                duration: 7,
+                duration: isMobile ? 5 : 7,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 1,
               }}
             />
-            <motion.div
-              className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-400/5 rounded-full blur-2xl"
-              animate={{
-                scale: [0.8, 1.3, 0.8],
-                opacity: [0.2, 0.5, 0.2],
-                rotate: [0, 180, 360],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 2,
-              }}
-            />
+            {!isMobile && (
+              <motion.div
+                className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-400/5 rounded-full blur-2xl"
+                animate={{
+                  scale: [0.8, 1.3, 0.8],
+                  opacity: [0.2, 0.5, 0.2],
+                  rotate: [0, 180, 360],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2,
+                }}
+              />
+            )}
 
-            {/* Floating Particles */}
-            {[...Array(12)].map((_, i) => (
+            {/* Floating Particles - Reduced count on mobile */}
+            {[...Array(isMobile ? 6 : 12)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-blue-400/40 rounded-full"
@@ -100,12 +138,12 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                   top: `${Math.random() * 100}%`,
                 }}
                 animate={{
-                  y: [0, -100, 0],
+                  y: isMobile ? [0, -50, 0] : [0, -100, 0],
                   opacity: [0, 1, 0],
                   scale: [0.5, 1, 0.5],
                 }}
                 transition={{
-                  duration: 4 + Math.random() * 4,
+                  duration: isMobile ? 3 + Math.random() * 2 : 4 + Math.random() * 4,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: Math.random() * 3,
@@ -113,29 +151,31 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
               />
             ))}
 
-            {/* Subtle Grid Pattern */}
-            <div 
-              className="absolute inset-0 opacity-[0.02]"
-              style={{
-                backgroundImage: `
-                  linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-                `,
-                backgroundSize: '50px 50px'
-              }}
-            />
+            {/* Subtle Grid Pattern - Hidden on mobile for performance */}
+            {!isMobile && (
+              <div 
+                className="absolute inset-0 opacity-[0.02]"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+                  `,
+                  backgroundSize: '50px 50px'
+                }}
+              />
+            )}
           </div>
 
-          <div className="relative z-10 text-center">
-            {/* Name Animation */}
+          <div className="relative z-10 text-center px-4 w-full max-w-md mx-auto">
+            {/* Name Animation - Responsive sizing */}
             <motion.div
-              className="mb-12"
+              className="mb-8 md:mb-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <motion.h1 
-                className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent mb-4"
+                className={`${isMobile ? 'text-4xl' : 'text-6xl md:text-7xl'} font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent mb-4`}
                 animate={{
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
@@ -152,7 +192,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-gray-400 font-medium"
+                className={`${isMobile ? 'text-lg' : 'text-xl'} text-gray-400 font-medium`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
@@ -161,9 +201,9 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
               </motion.p>
             </motion.div>
 
-            {/* Professional Progress Bar Container */}
+            {/* Professional Progress Bar Container - Mobile Optimized */}
             <motion.div
-              className="w-80 md:w-96 mx-auto"
+              className={`${isMobile ? 'w-72' : 'w-80 md:w-96'} mx-auto`}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}

@@ -110,18 +110,30 @@ const PageLoader = () => (
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
+    // Add small delay to ensure smooth transition
+    setTimeout(() => {
+      setIsInitialized(true);
+    }, 100);
   };
+
+  // Prevent flash of unstyled content
+  if (!isInitialized && isLoading) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  }
 
   return (
     <>
       {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      <HashRouter>
-        <ScrollToTop />
-        <AppContent />
-      </HashRouter>
+      {!isLoading && (
+        <HashRouter>
+          <ScrollToTop />
+          <AppContent />
+        </HashRouter>
+      )}
     </>
   );
 };
