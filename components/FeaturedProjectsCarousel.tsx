@@ -257,9 +257,9 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
               className="w-full"
             >
               <div className="flex flex-col lg:flex-row min-h-[320px]">
-                {/* Enhanced Image Section with multiple images */}
+                {/* Enhanced Image Section */}
                 <div className="w-full lg:w-[60%] relative h-[220px] lg:h-[320px] overflow-hidden">
-                  {/* Image container with parallax effect */}
+                  {/* Image container */}
                   <motion.div
                     className="relative w-full h-full"
                     variants={imageVariants}
@@ -337,7 +337,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                   </motion.div>
                 </div>
 
-                {/* Enhanced Content Section with better typography */}
+                {/* Enhanced Content Section - Properly aligned right side */}
                 <motion.div 
                   className="w-full lg:w-[40%] p-6 lg:p-8 flex flex-col justify-center space-y-4 bg-gradient-to-br from-slate-50/98 to-gray-100/98 dark:from-gray-800/98 dark:to-gray-700/98"
                   variants={containerVariants}
@@ -364,7 +364,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                     {project.description}
                   </motion.p>
 
-                  {/* Enhanced technology tags with better styling */}
+                  {/* Enhanced technology tags with left-right layout */}
                   <motion.div 
                     className="flex flex-wrap gap-2"
                     variants={itemVariants}
@@ -394,14 +394,14 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                     )}
                   </motion.div>
 
-                  {/* Enhanced action buttons with better animations */}
+                  {/* Enhanced action buttons with left-right layout */}
                   <motion.div 
-                    className="flex flex-wrap gap-3"
+                    className="flex flex-row gap-3"
                     variants={itemVariants}
                   >
                     <Link 
                       to="/projects" 
-                      className="group relative inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-200 overflow-hidden"
+                      className="group relative inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-200 overflow-hidden"
                     >
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600"
@@ -410,24 +410,24 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                         transition={{ duration: 0.3 }}
                       />
                       
-                      <span className="relative z-10 flex items-center gap-3">
-                        View All Projects
+                      <span className="relative z-10 flex items-center gap-2">
+                        View Details
                         <motion.div
-                          whileHover={{ x: 5 }}
+                          whileHover={{ x: 3 }}
                           transition={{ type: "spring", stiffness: 400 }}
                         >
-                          <ExternalLinkIcon className="h-5 w-5" />
+                          <ExternalLinkIcon className="h-4 w-4" />
                         </motion.div>
                       </span>
                     </Link>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-2">
                       {project.liveUrl && (
                         <motion.a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-4 text-base font-semibold text-gray-700 dark:text-gray-300 bg-gray-800 rounded-2xl border-2 border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-800 rounded-xl border border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                           whileHover={{ 
                             borderColor: "#6366f1",
                             backgroundColor: "rgba(99, 102, 241, 0.05)",
@@ -438,7 +438,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                             whileHover={{ rotate: 360 }}
                             transition={{ duration: 0.5 }}
                           >
-                            <ExternalLinkIcon className="h-5 w-5" />
+                            <ExternalLinkIcon className="h-4 w-4" />
                           </motion.div>
                           Demo
                         </motion.a>
@@ -449,7 +449,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                           href={project.repoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-4 text-gray-600 dark:text-gray-400 bg-gray-800 rounded-2xl border-2 border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                          className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 bg-gray-800 rounded-xl border border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                           whileHover={{ 
                             borderColor: "#6366f1",
                             backgroundColor: "rgba(99, 102, 241, 0.05)",
@@ -461,25 +461,27 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                             whileHover={{ rotate: 360 }}
                             transition={{ duration: 0.5 }}
                           >
-                            <GithubIcon className="h-5 w-5" />
+                            <GithubIcon className="h-4 w-4" />
                           </motion.div>
                         </motion.a>
                       )}
                     </div>
                   </motion.div>
 
-                  {/* Project metrics */}
+                  {/* Project metrics with left-right layout */}
                   <motion.div 
-                    className="flex items-center gap-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60"
+                    className="flex items-center justify-between pt-3 border-t border-slate-200/60 dark:border-slate-700/60"
                     variants={itemVariants}
                   >
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{project.tags.length}</div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Tech</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-slate-600 dark:text-slate-400">{project.imageUrls.length}</div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Views</div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{project.tags.length}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Tech</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-slate-600 dark:text-slate-400">{project.imageUrls.length}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Images</div>
+                      </div>
                     </div>
                     <div className="text-center">
                       <div className={`text-lg font-bold ${

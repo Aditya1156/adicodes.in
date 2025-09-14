@@ -23,7 +23,13 @@ const ResumePage: React.FC = () => {
 
   const handlePrint = () => {
     trackEvent('Click: Print Resume');
-    window.print();
+    // Download the PDF resume
+    const link = document.createElement('a');
+    link.href = '/images/resume.pdf';
+    link.download = 'Aditya_Kumar_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
@@ -396,7 +402,7 @@ const ResumePage: React.FC = () => {
               transition={{ type: 'spring', stiffness: 120, damping: 15 }}
             >
               <CheckCircleIcon className="w-5 h-5 text-green-400" />
-              <span>Print dialog opened!</span>
+              <span>Resume PDF downloading...</span>
             </motion.div>
           )}
         </AnimatePresence>

@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS } from '../lib/data';
 import ProjectCard from './ProjectCard';
+import ProjectModal from './ProjectModal';
 import { SearchIcon, FilterIcon, GridIcon, ListIcon, CloseIcon } from './icons/UIIcons';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { Project } from '../types';
@@ -28,6 +29,20 @@ const EnhancedProjectGallery: React.FC = () => {
   const [sortBy, setSortBy] = useState<SortOption>('date');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Handle project click to open modal
+  const handleProjectClick = useCallback((project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  }, []);
+
+  // Handle modal close
+  const handleModalClose = useCallback(() => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  }, []);
 
   // Extract unique values for filter options
   const filterOptions = useMemo(() => {
@@ -130,54 +145,63 @@ const EnhancedProjectGallery: React.FC = () => {
   };
 
   return (
-    <div className="w-full space-y-6">
-      {/* Header with Search and Controls */}
-      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+    <div className="w-full space-y-8">
+      {/* Modern Header with Search and Controls */}
+      <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+        {/* Enhanced Search Bar */}
         <div className="flex-1 max-w-md">
-          <div className="relative">
-            <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <div className="relative group">
+            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-400 transition-colors duration-200" />
             <input
               type="text"
               placeholder="Search projects..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-800 text-gray-100 transition-all duration-200"
+              className="w-full pl-12 pr-4 py-4 border border-white/10 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 bg-white/5 backdrop-blur-sm text-slate-100 placeholder-slate-400 transition-all duration-300 hover:bg-white/10"
             />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white transition-colors duration-200"
+              >
+                <CloseIcon className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* View Mode Toggle */}
-          <div className="flex items-center bg-gray-800 rounded-lg p-1">
+        <div className="flex items-center gap-4">
+          {/* Modern View Mode Toggle */}
+          <div className="flex items-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-1">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-md transition-all duration-200 ${
+              className={`p-3 rounded-lg transition-all duration-200 ${
                 viewMode === 'grid'
-                  ? 'bg-gray-700 text-indigo-400 shadow-sm'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-blue-500/20 text-blue-400 shadow-lg'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
               }`}
               title="Grid view"
             >
-              <GridIcon className="w-4 h-4" />
+              <GridIcon className="w-5 h-5" />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2 rounded-md transition-all duration-200 ${
+              className={`p-3 rounded-lg transition-all duration-200 ${
                 viewMode === 'list'
-                  ? 'bg-gray-700 text-indigo-400 shadow-sm'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-blue-500/20 text-blue-400 shadow-lg'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
               }`}
               title="List view"
             >
-              <ListIcon className="w-4 h-4" />
+              <ListIcon className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Sort Dropdown */}
+          {/* Enhanced Sort Dropdown */}
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            className="px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-slate-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 hover:bg-white/10"
           >
             <option value="date">Latest First</option>
             <option value="name">Name A-Z</option>
@@ -185,13 +209,13 @@ const EnhancedProjectGallery: React.FC = () => {
             <option value="status">By Status</option>
           </select>
 
-          {/* Filter Toggle */}
+          {/* Modern Filter Toggle */}
           <motion.button
             onClick={() => setShowFilters(!showFilters)}
-            className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 ${
+            className={`px-4 py-3 rounded-xl font-medium transition-all duration-200 flex items-center gap-2 backdrop-blur-sm border ${
               showFilters
-                ? 'bg-indigo-900/30 text-indigo-400'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30'
+                : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10'
             }`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -199,50 +223,53 @@ const EnhancedProjectGallery: React.FC = () => {
             <FilterIcon className="w-4 h-4" />
             Filters
             {Object.values(filters).some(v => v !== '' && v !== null) && (
-              <span className="w-2 h-2 bg-indigo-500 rounded-full" />
+              <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
             )}
           </motion.button>
         </div>
       </div>
 
-      {/* Advanced Filters Panel */}
+      {/* Modern Advanced Filters Panel */}
       <AnimatePresence>
         {showFilters && (
           <motion.div
-            className="bg-gray-800/50 rounded-lg p-6 border border-gray-700"
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-2xl"
             variants={filterVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-100">Advanced Filters</h3>
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                <FilterIcon className="w-5 h-5 text-blue-400" />
+                Advanced Filters
+              </h3>
+              <div className="flex items-center gap-3">
                 <button
                   onClick={resetFilters}
-                  className="px-3 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-200"
+                  className="px-3 py-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-lg"
                 >
                   Reset All
                 </button>
                 <button
                   onClick={() => setShowFilters(false)}
-                  className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-200"
+                  className="p-1.5 text-slate-400 hover:text-white transition-colors duration-200 hover:bg-white/5 rounded-lg"
                 >
                   <CloseIcon className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Category Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-3">
                   Category
                 </label>
                 <select
                   value={filters.category}
                   onChange={(e) => updateFilter('category', e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-slate-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 hover:bg-white/10"
                 >
                   <option value="">All Categories</option>
                   {filterOptions.categories.map((category: string) => (
@@ -253,13 +280,13 @@ const EnhancedProjectGallery: React.FC = () => {
 
               {/* Technology Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-3">
                   Technology
                 </label>
                 <select
                   value={filters.technology}
                   onChange={(e) => updateFilter('technology', e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-slate-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 hover:bg-white/10"
                 >
                   <option value="">All Technologies</option>
                   {filterOptions.technologies.map((tech: string) => (
@@ -270,13 +297,13 @@ const EnhancedProjectGallery: React.FC = () => {
 
               {/* Status Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-3">
                   Status
                 </label>
                 <select
                   value={filters.status}
                   onChange={(e) => updateFilter('status', e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-slate-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 hover:bg-white/10"
                 >
                   <option value="">All Statuses</option>
                   {filterOptions.statuses.map((status: string) => (
@@ -287,13 +314,13 @@ const EnhancedProjectGallery: React.FC = () => {
 
               {/* Featured Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-3">
                   Featured
                 </label>
                 <select
                   value={filters.featured === null ? '' : filters.featured.toString()}
                   onChange={(e) => updateFilter('featured', e.target.value === '' ? null : e.target.value === 'true')}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-slate-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 hover:bg-white/10"
                 >
                   <option value="">All Projects</option>
                   <option value="true">Featured Only</option>
@@ -304,47 +331,47 @@ const EnhancedProjectGallery: React.FC = () => {
 
             {/* Active Filters Summary */}
             {Object.values(filters).some(v => v !== '' && v !== null) && (
-              <div className="mt-4 pt-4 border-t border-gray-700">
+              <div className="mt-6 pt-6 border-t border-white/10">
                 <div className="flex flex-wrap gap-2">
                   {filters.category && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-300 rounded-full text-sm">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-lg text-sm border border-indigo-500/30">
                       Category: {filters.category}
                       <button
                         onClick={() => updateFilter('category', '')}
-                        className="p-0.5 hover:bg-indigo-200 dark:hover:bg-indigo-800 rounded-full transition-colors duration-200"
+                        className="p-0.5 hover:bg-indigo-400/20 rounded-full transition-colors duration-200"
                       >
                         <CloseIcon className="w-3 h-3" />
                       </button>
                     </span>
                   )}
                   {filters.technology && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-lg text-sm border border-purple-500/30">
                       Tech: {filters.technology}
                       <button
                         onClick={() => updateFilter('technology', '')}
-                        className="p-0.5 hover:bg-purple-200 dark:hover:bg-purple-800 rounded-full transition-colors duration-200"
+                        className="p-0.5 hover:bg-purple-400/20 rounded-full transition-colors duration-200"
                       >
                         <CloseIcon className="w-3 h-3" />
                       </button>
                     </span>
                   )}
                   {filters.status && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/20 text-green-300 rounded-lg text-sm border border-green-500/30">
                       Status: {filters.status}
                       <button
                         onClick={() => updateFilter('status', '')}
-                        className="p-0.5 hover:bg-green-200 dark:hover:bg-green-800 rounded-full transition-colors duration-200"
+                        className="p-0.5 hover:bg-green-400/20 rounded-full transition-colors duration-200"
                       >
                         <CloseIcon className="w-3 h-3" />
                       </button>
                     </span>
                   )}
                   {filters.featured !== null && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-sm">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-lg text-sm border border-yellow-500/30">
                       {filters.featured ? 'Featured' : 'Non-Featured'}
                       <button
                         onClick={() => updateFilter('featured', null)}
-                        className="p-0.5 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded-full transition-colors duration-200"
+                        className="p-0.5 hover:bg-yellow-400/20 rounded-full transition-colors duration-200"
                       >
                         <CloseIcon className="w-3 h-3" />
                       </button>
@@ -357,17 +384,24 @@ const EnhancedProjectGallery: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Results Count */}
+      {/* Modern Results Count */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Showing <span className="font-semibold">{filteredAndSortedProjects.length}</span> of{' '}
-          <span className="font-semibold">{PROJECTS.length}</span> projects
-        </p>
+        <div className="flex items-center gap-4">
+          <p className="text-slate-300 font-medium">
+            Showing <span className="text-white font-bold">{filteredAndSortedProjects.length}</span> of{' '}
+            <span className="text-white font-bold">{PROJECTS.length}</span> projects
+          </p>
+          {searchTerm && (
+            <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-lg text-sm border border-blue-500/30">
+              Search: "{searchTerm}"
+            </span>
+          )}
+        </div>
         
         {searchTerm && (
           <motion.button
             onClick={() => setSearchTerm('')}
-            className="text-sm text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-200"
+            className="text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200 hover:underline"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -376,12 +410,12 @@ const EnhancedProjectGallery: React.FC = () => {
         )}
       </div>
 
-      {/* Projects Grid/List */}
+      {/* Modern Projects Grid/List */}
       <motion.div
         className={`${
           viewMode === 'grid'
-            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
-            : 'space-y-4'
+            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+            : 'space-y-6'
         }`}
         variants={containerVariants}
         initial="hidden"
@@ -398,30 +432,28 @@ const EnhancedProjectGallery: React.FC = () => {
                 animate="visible"
                 exit="hidden"
                 className={viewMode === 'list' ? 'w-full' : ''}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
               >
                 <ProjectCard 
                   project={project} 
-                  onClick={() => {
-                    // Handle project click - could open modal or navigate
-                    console.log('Project clicked:', project.title);
-                  }}
+                  onClick={() => handleProjectClick(project)}
                 />
               </motion.div>
             ))
           ) : (
             <motion.div
-              className="col-span-full flex flex-col items-center justify-center py-12"
+              className="col-span-full flex flex-col items-center justify-center py-16"
               variants={itemVariants}
               initial="hidden"
               animate="visible"
             >
-              <div className="text-gray-400 dark:text-gray-600 mb-4">
-                <SearchIcon className="w-16 h-16 mx-auto mb-4" />
+              <div className="text-slate-400 mb-6">
+                <SearchIcon className="w-20 h-20 mx-auto mb-4 opacity-50" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-100 mb-2">
+              <h3 className="text-xl font-semibold text-white mb-3">
                 No projects found
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-center max-w-md">
+              <p className="text-slate-400 text-center max-w-md mb-6">
                 {searchTerm 
                   ? `No projects match "${searchTerm}". Try different keywords or reset filters.`
                   : 'No projects match the current filters. Try adjusting your criteria.'
@@ -429,7 +461,7 @@ const EnhancedProjectGallery: React.FC = () => {
               </p>
               <button
                 onClick={resetFilters}
-                className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
               >
                 Reset Filters
               </button>
@@ -438,7 +470,7 @@ const EnhancedProjectGallery: React.FC = () => {
         </AnimatePresence>
       </motion.div>
 
-      {/* Load More / Pagination could go here */}
+      {/* Load More Section */}
       {filteredAndSortedProjects.length > 9 && (
         <motion.div
           className="flex justify-center pt-8"
@@ -446,11 +478,18 @@ const EnhancedProjectGallery: React.FC = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <button className="px-6 py-3 bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 font-medium">
+          <button className="px-8 py-4 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white rounded-xl transition-all duration-200 font-medium backdrop-blur-sm border border-white/10 hover:border-white/20 shadow-lg">
             Load More Projects
           </button>
         </motion.div>
       )}
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+      />
     </div>
   );
 };

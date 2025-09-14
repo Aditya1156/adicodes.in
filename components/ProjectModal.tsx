@@ -11,8 +11,7 @@ import {
   staggerContainer,
   staggerItem,
   tagVariants,
-  rippleEffect,
-  parallaxVariants
+  rippleEffect
 } from '../lib/animations';
 
 interface ProjectModalProps {
@@ -25,8 +24,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [ripples, setRipples] = useState<Array<{id: number, x: number, y: number}>>([]);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const modalRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   // Mouse tracking for parallax effect
   const mouseX = useMotionValue(0);
@@ -34,11 +35,27 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const backgroundX = useSpring(useTransform(mouseX, [-500, 500], [-30, 30]), { stiffness: 100, damping: 30 });
   const backgroundY = useSpring(useTransform(mouseY, [-500, 500], [-30, 30]), { stiffness: 100, damping: 30 });
 
+  // Auto-play images with pause on hover
+  useEffect(() => {
+    if (isOpen && project && project.imageUrls.length > 1 && isAutoPlaying) {
+      autoPlayRef.current = setInterval(() => {
+        setCurrentImageIndex(prev => (prev + 1) % project.imageUrls.length);
+      }, 4000); // Change image every 4 seconds
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isOpen, project, isAutoPlaying]);
+
   useEffect(() => {
     if (isOpen && project) {
       setCurrentImageIndex(0);
       setIsImageLoading(true);
       setRipples([]);
+      setIsAutoPlaying(true);
       trackEvent('View: Project Modal', { project: project.title });
     }
   }, [isOpen, project]);
@@ -76,19 +93,31 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const handleNextImage = () => {
     if (!project) return;
     setIsImageLoading(true);
+    setIsAutoPlaying(false); // Pause auto-play when user navigates
     setCurrentImageIndex((prev) => (prev + 1) % project.imageUrls.length);
+    
+    // Resume auto-play after 10 seconds of inactivity
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const handlePrevImage = () => {
     if (!project) return;
     setIsImageLoading(true);
+    setIsAutoPlaying(false); // Pause auto-play when user navigates
     setCurrentImageIndex((prev) => (prev - 1 + project.imageUrls.length) % project.imageUrls.length);
+    
+    // Resume auto-play after 10 seconds of inactivity
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const goToImage = (index: number) => {
     if (!project || index === currentImageIndex) return;
     setIsImageLoading(true);
+    setIsAutoPlaying(false); // Pause auto-play when user navigates
     setCurrentImageIndex(index);
+    
+    // Resume auto-play after 10 seconds of inactivity
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const createRipple = (e: React.MouseEvent) => {
@@ -115,7 +144,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-0"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 sm:p-6 lg:p-8"
           variants={modalOverlayVariants}
           initial="hidden"
           animate="visible"
@@ -135,7 +164,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
           
           <motion.div
             ref={modalRef}
-            className="relative w-full h-full bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl shadow-2xl overflow-hidden"
+            className="relative w-[90vmin] h-[90vmin] max-w-[600px] max-h-[600px] bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl shadow-2xl overflow-hidden rounded-3xl"
             variants={modalContentVariants}
             initial="hidden"
             animate="visible"
@@ -148,7 +177,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
             {/* Enhanced close button */}
             <motion.button
               onClick={onClose}
-              className="absolute top-8 right-8 z-30 p-4 bg-black/80 text-white rounded-full shadow-2xl backdrop-blur-sm border border-white/20"
+              className="absolute top-4 right-4 z-30 p-3 bg-black/80 text-white rounded-full shadow-2xl backdrop-blur-sm border border-white/20"
               whileHover={{ 
                 scale: 1.1, 
                 rotate: 90,
@@ -160,12 +189,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <CloseIcon className="h-8 w-8" />
+              <CloseIcon className="h-6 w-6" />
             </motion.button>
 
-            <div className="flex h-full">
-              {/* Enhanced image section - Perfect 50% width */}
-              <div className="w-1/2 relative">
+            <div className="flex flex-col h-full overflow-hidden">
+              {/* Enhanced image section - Top half */}
+              <div className="w-full h-1/2 relative flex-shrink-0">
                 <div 
                   ref={imageContainerRef}
                   className="relative h-full overflow-hidden bg-gradient-to-br from-gray-900 to-black cursor-pointer"
@@ -235,10 +264,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                     <>
                       <motion.button
                         onClick={handlePrevImage}
-                        className="absolute left-8 top-1/2 -translate-y-1/2 z-20 p-4 bg-black/80 text-white rounded-full shadow-2xl backdrop-blur-sm border border-white/20"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/80 text-white rounded-full shadow-2xl backdrop-blur-sm border border-white/20"
                         whileHover={{ 
                           scale: 1.2,
-                          x: -8,
+                          x: -4,
                           backgroundColor: "rgba(0, 0, 0, 0.9)",
                           boxShadow: "0 15px 40px rgba(0, 0, 0, 0.3)"
                         }}
@@ -247,15 +276,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
                       >
-                        <ChevronLeftIcon className="h-8 w-8" />
+                        <ChevronLeftIcon className="h-6 w-6" />
                       </motion.button>
                       
                       <motion.button
                         onClick={handleNextImage}
-                        className="absolute right-8 top-1/2 -translate-y-1/2 z-20 p-4 bg-black/80 text-white rounded-full shadow-2xl backdrop-blur-sm border border-white/20"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/80 text-white rounded-full shadow-2xl backdrop-blur-sm border border-white/20"
                         whileHover={{ 
                           scale: 1.2,
-                          x: 8,
+                          x: 4,
                           backgroundColor: "rgba(0, 0, 0, 0.9)",
                           boxShadow: "0 15px 40px rgba(0, 0, 0, 0.3)"
                         }}
@@ -264,20 +293,39 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
                       >
-                        <ChevronRightIcon className="h-8 w-8" />
+                        <ChevronRightIcon className="h-6 w-6" />
                       </motion.button>
                     </>
                   )}
 
-                  {/* Enhanced image counter */}
+                  {/* Enhanced image counter with auto-play indicator */}
                   {project.imageUrls.length > 1 && (
                     <motion.div 
-                      className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 px-6 py-3 bg-black/80 backdrop-blur-md text-white text-lg rounded-full border border-white/20"
+                      className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-6 py-3 bg-black/80 backdrop-blur-md text-white text-lg rounded-full border border-white/20"
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 }}
                     >
-                      {currentImageIndex + 1} / {project.imageUrls.length}
+                      <span>{currentImageIndex + 1} / {project.imageUrls.length}</span>
+                      
+                      {/* Auto-play indicator */}
+                      <motion.button
+                        onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                        className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-colors ${
+                          isAutoPlaying ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'
+                        }`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <motion.div
+                          className={`w-2 h-2 rounded-full ${
+                            isAutoPlaying ? 'bg-green-400' : 'bg-gray-400'
+                          }`}
+                          animate={isAutoPlaying ? { scale: [1, 1.2, 1] } : { scale: 1 }}
+                          transition={{ duration: 1, repeat: isAutoPlaying ? Infinity : 0 }}
+                        />
+                        {isAutoPlaying ? 'Auto' : 'Manual'}
+                      </motion.button>
                     </motion.div>
                   )}
                 </div>
@@ -323,9 +371,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                 )}
               </div>
 
-              {/* Enhanced content section - Perfect 50% width */}
+              {/* Enhanced content section - Bottom half */}
               <motion.div 
-                className="w-1/2 p-12 overflow-y-auto scrollbar-hide bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700"
+                className="w-full h-1/2 p-4 sm:p-6 overflow-y-auto scrollbar-hide bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700"
                 variants={staggerContainer}
                 initial="hidden"
                 animate="visible"
