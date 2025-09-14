@@ -256,48 +256,16 @@ const HeroSection: React.FC = () => {
                 transition: { duration: 0.3 }
               }}
             >
-              {/* Smoky Glow Effects */}
+              {/* Simple Glow Effect */}
               <motion.div
-                className="absolute -inset-8 rounded-full bg-gradient-to-r from-indigo-500/20 via-purple-500/15 to-cyan-500/20 blur-2xl"
+                className="absolute -inset-4 rounded-full bg-blue-500/20 blur-md"
                 animate={{
-                  scale: [1, 1.2, 1],
                   opacity: [0.3, 0.6, 0.3],
-                  rotate: [0, 180, 360],
                 }}
                 transition={{
-                  duration: 8,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
-                }}
-              />
-              
-              <motion.div
-                className="absolute -inset-6 rounded-full bg-gradient-to-r from-purple-500/25 via-pink-500/20 to-indigo-500/25 blur-xl"
-                animate={{
-                  scale: [1.1, 0.9, 1.1],
-                  opacity: [0.4, 0.7, 0.4],
-                  rotate: [360, 180, 0],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-              />
-              
-              <motion.div
-                className="absolute -inset-4 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/25 to-purple-400/30 blur-lg"
-                animate={{
-                  scale: [0.9, 1.3, 0.9],
-                  opacity: [0.5, 0.8, 0.5],
-                  rotate: [0, -180, -360],
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 2,
                 }}
               />
               
