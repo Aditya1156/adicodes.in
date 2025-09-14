@@ -9,11 +9,11 @@ const NotFoundPage: React.FC = () => {
       <div className="absolute bottom-8 left-1/2 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000 dark:opacity-30"></div>
       
       <div className="flex flex-col items-center justify-center text-center py-20 relative z-10">
-      <h1 className="text-6xl font-extrabold text-indigo-600 dark:text-indigo-400">404</h1>
-      <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+      <h1 className="text-6xl font-extrabold text-indigo-400">404</h1>
+      <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
         Page Not Found
       </h2>
-      <p className="mt-4 text-base text-gray-500 dark:text-gray-400">
+      <p className="mt-4 text-base text-gray-400">
         Sorry, we couldn’t find the page you’re looking for.
       </p>
       <div className="mt-10">

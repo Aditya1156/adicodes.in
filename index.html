@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -10,23 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- PrismJS Themes -->
-    <link id="prism-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
-    <link id="prism-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <!-- PrismJS Dark Theme Only -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
 
     <script>
-      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-      const lightThemeLink = document.getElementById('prism-light-theme');
-      const darkThemeLink = document.getElementById('prism-dark-theme');
-      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        if (lightThemeLink) lightThemeLink.disabled = true;
-        if (darkThemeLink) darkThemeLink.disabled = false;
-      } else {
-        document.documentElement.classList.remove('dark');
-        if (lightThemeLink) lightThemeLink.disabled = false;
-        if (darkThemeLink) darkThemeLink.disabled = true;
-      }
+      // Force dark theme
+      document.documentElement.classList.add('dark');
 
       tailwind.config = {
         darkMode: 'class',
@@ -54,8 +43,8 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
-    <div id="root"></div>
+  <body class="bg-gray-900 text-gray-100 antialiased m-0 p-0 w-full min-h-screen overflow-x-hidden">
+    <div id="root" class="w-full min-h-screen"></div>
     <script type="module" src="/index.tsx"></script>
     
     <!-- PrismJS Scripts -->

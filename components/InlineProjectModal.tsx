@@ -204,7 +204,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
             {/* Professional close button */}
             <motion.button
               onClick={onClose}
-              className="absolute top-6 right-6 z-30 p-3 bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-300 rounded-xl shadow-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:bg-white dark:hover:bg-gray-800"
+              className="absolute top-6 right-6 z-30 p-3 bg-white/90 dark:bg-gray-800/90 text-gray-300 rounded-xl shadow-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:bg-white dark:hover:bg-gray-800"
               whileHover={{ 
                 scale: 1.05, 
                 rotate: 90,
@@ -222,7 +222,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
 
             <div className="flex flex-col lg:flex-row h-full min-h-[500px] lg:min-h-[600px] overflow-hidden">
               {/* Enhanced image section with proper spacing and alignment */}
-              <div className="w-full lg:w-[60%] relative flex flex-col bg-gray-50 dark:bg-gray-800/50">
+              <div className="w-full lg:w-[60%] relative flex flex-col bg-gray-800/50">
                 <div 
                   ref={imageContainerRef}
                   className="relative flex-1 h-[300px] sm:h-[350px] lg:h-[500px] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 cursor-pointer flex items-center justify-center"
@@ -246,7 +246,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                   <AnimatePresence>
                     {isImageLoading && (
                       <motion.div
-                        className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center z-10"
+                        className="absolute inset-0 bg-gray-700 flex items-center justify-center z-10"
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
@@ -359,7 +359,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                           className={`relative flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 shadow-sm ${
                             index === currentImageIndex 
                               ? 'border-indigo-500 shadow-lg ring-2 ring-indigo-200 dark:ring-indigo-800' 
-                              : 'border-gray-200 dark:border-gray-600 hover:border-indigo-300 hover:shadow-md'
+                              : 'border-gray-600 hover:border-indigo-300 hover:shadow-md'
                           }`}
                           whileHover={{ 
                             scale: 1.08,
@@ -386,8 +386,8 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                               transition={{ duration: 0.3 }}
                             />
                           )}
-                          <div className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-white dark:bg-gray-800 rounded-full text-xs flex items-center justify-center shadow-sm">
-                            <span className="text-[8px] font-bold text-gray-600 dark:text-gray-300">
+                          <div className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-gray-800 rounded-full text-xs flex items-center justify-center shadow-sm">
+                            <span className="text-[8px] font-bold text-gray-300">
                               {index + 1}
                             </span>
                           </div>
@@ -410,7 +410,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                   {/* Header */}
                   <motion.div className="mb-4" variants={staggerItem}>
                     <motion.h2 
-                      className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 leading-tight"
+                      className="text-xl lg:text-2xl font-bold text-white mb-3 leading-tight"
                       whileHover={{
                         background: "linear-gradient(135deg, #6366f1, #a855f7, #ec4899)",
                         backgroundClip: "text",
@@ -442,7 +442,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                   {/* Features */}
                   {project.features && project.features.length > 0 && (
                     <motion.div className="mb-5" variants={staggerItem}>
-                      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-3">
+                      <h3 className="text-base font-semibold text-white mb-3">
                         Key Features
                       </h3>
                       <ul className="space-y-2">
@@ -458,14 +458,14 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
 
                   {/* Technologies */}
                   <motion.div className="mb-6" variants={staggerItem}>
-                    <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-3">
+                    <h3 className="text-base font-semibold text-white mb-3">
                       Technologies Used
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, index) => (
                         <motion.span
                           key={index}
-                          className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-md text-sm font-medium border border-indigo-200/50 dark:border-indigo-700/50"
+                          className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-300 px-3 py-1 rounded-md text-sm font-medium border border-indigo-200/50 dark:border-indigo-700/50"
                           custom={index}
                           variants={tagVariants}
                           whileHover="hover"
@@ -501,7 +501,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackEvent('Click: Project Repo', { project: project.title, location: 'inline-modal' })}
-                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold rounded-lg text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold rounded-lg text-gray-700 dark:text-gray-300 bg-gray-800 border border-gray-700"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -512,7 +512,7 @@ const InlineProjectModal: React.FC<InlineProjectModalProps> = ({ project, isExpa
                     
                     <motion.button
                       onClick={onClose}
-                      className="px-4 py-3 text-sm font-semibold rounded-lg text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600"
+                      className="px-4 py-3 text-sm font-semibold rounded-lg text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-600"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >

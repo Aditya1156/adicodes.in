@@ -189,7 +189,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                   <AnimatePresence>
                     {isImageLoading && (
                       <motion.div
-                        className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center z-10"
+                        className="absolute inset-0 bg-gray-700 flex items-center justify-center z-10"
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
@@ -336,7 +336,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                   variants={staggerItem}
                 >
                   <motion.h2 
-                    className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
+                    className="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight"
                     whileHover={{
                       background: "linear-gradient(135deg, #6366f1, #a855f7, #ec4899)",
                       backgroundClip: "text",
@@ -369,7 +369,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                   className="mb-8"
                   variants={staggerItem}
                 >
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  <h3 className="text-xl font-semibold text-white mb-4">
                     About This Project
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
@@ -383,7 +383,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                     className="mb-8"
                     variants={staggerItem}
                   >
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    <h3 className="text-xl font-semibold text-white mb-6">
                       Key Features
                     </h3>
                     <motion.ul 
@@ -418,7 +418,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                   className="mb-10"
                   variants={staggerItem}
                 >
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                  <h3 className="text-xl font-semibold text-white mb-6">
                     Technologies Used
                   </h3>
                   <motion.div 
@@ -430,7 +430,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                     {project.tags.map((tag, index) => (
                       <motion.span
                         key={index}
-                        className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 px-4 py-2.5 rounded-xl text-base font-medium border border-indigo-200/50 dark:border-indigo-700/50"
+                        className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-300 px-4 py-2.5 rounded-xl text-base font-medium border border-indigo-200/50 dark:border-indigo-700/50"
                         custom={index}
                         variants={tagVariants}
                         whileHover="hover"
@@ -485,7 +485,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackEvent('Click: Project Repo', { project: project.title, location: 'modal' })}
-                        className="flex-1 inline-flex items-center justify-center gap-3 px-6 py-4 text-lg font-semibold rounded-xl text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all"
+                        className="flex-1 inline-flex items-center justify-center gap-3 px-6 py-4 text-lg font-semibold rounded-xl text-gray-700 dark:text-gray-300 bg-gray-800 border border-gray-700 transition-all"
                         whileHover={{ 
                           scale: 1.02,
                           borderColor: "#6366f1",
@@ -505,7 +505,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                     
                     <motion.button
                       onClick={onClose}
-                      className="px-6 py-4 text-lg font-semibold rounded-xl text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 transition-all"
+                      className="px-6 py-4 text-lg font-semibold rounded-xl text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-600 transition-all"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >

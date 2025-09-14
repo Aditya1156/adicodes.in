@@ -57,18 +57,18 @@ const BlogPostPage: React.FC = () => {
         <div className="mb-8">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline"
+            className="inline-flex items-center gap-2 text-indigo-400 hover:underline"
           >
             <ChevronLeftIcon className="h-5 w-5" />
             Back to Blog
           </Link>
         </div>
         <article>
-          <header className="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight">
+          <header className="mb-8 border-b border-gray-700 pb-8">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
               {postMeta.title}
             </h1>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-400">
               Published on{' '}
               {new Date(postMeta.date).toLocaleDateString('en-US', {
                 year: 'numeric',

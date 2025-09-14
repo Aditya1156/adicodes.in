@@ -201,7 +201,7 @@ const AboutPage: React.FC = () => {
                               whileHover={{ y: -10, scale: 1.05, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
                               transition={{ type: 'spring', stiffness: 300 }}
                           >
-                              <div className="mx-auto bg-indigo-100 dark:bg-indigo-900/50 text-indigo-500 dark:text-indigo-400 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                              <div className="mx-auto bg-indigo-900/50 text-indigo-500 dark:text-indigo-400 rounded-full h-16 w-16 flex items-center justify-center mb-4">
                                   <interest.icon className="w-8 h-8" />
                               </div>
                               <h3 className="text-xl font-bold mb-2">{interest.title}</h3>
@@ -269,7 +269,7 @@ const AboutPage: React.FC = () => {
                                       </span>
                                       
                                       {/* Title */}
-                                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
                                           {event.title}
                                       </h3>
                                       
@@ -334,7 +334,7 @@ const AboutPage: React.FC = () => {
                       <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg flex items-center justify-center">
                           <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
                       </div>
-                      <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 font-medium whitespace-nowrap">
+                      <p className="text-center text-sm text-gray-400 mt-2 font-medium whitespace-nowrap">
                           To be continued...
                       </p>
                   </motion.div>

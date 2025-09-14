@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       href: SOCIAL_LINKS.github,
       icon: GithubIcon,
       label: 'GitHub',
-      color: 'hover:text-gray-900 dark:hover:text-white',
+      color: 'hover:text-white',
       event: 'Click: Social (GitHub)',
     },
     {
@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
             variants={fadeInUp}
           >
             <motion.p 
-              className="text-sm text-gray-500 dark:text-gray-400 mb-2"
+              className="text-sm text-gray-400 mb-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
               Built with ❤️ using React & TypeScript
             </motion.p>
             <motion.p 
-              className="text-sm text-gray-500 dark:text-gray-400"
+              className="text-sm text-gray-400"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}

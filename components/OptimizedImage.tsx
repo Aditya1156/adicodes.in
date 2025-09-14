@@ -39,7 +39,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = memo(({
 
   if (hasError) {
     return (
-      <div className={`bg-gray-200 dark:bg-gray-700 flex items-center justify-center ${className}`}>
+      <div className={`bg-gray-700 flex items-center justify-center ${className}`}>
         <span className="text-gray-500 text-sm">Failed to load image</span>
       </div>
     );
@@ -62,7 +62,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = memo(({
       {/* Loading indicator */}
       {!isLoaded && (
         <motion.div 
-          className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800"
+          className="absolute inset-0 flex items-center justify-center bg-gray-800"
           initial={{ opacity: 1 }}
           animate={{ opacity: isLoaded ? 0 : 1 }}
           transition={{ duration: 0.3 }}
