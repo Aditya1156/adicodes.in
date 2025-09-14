@@ -281,24 +281,9 @@ const HeroSection: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedScaleIn)}
           transition={{ delay: 0.4 }}
         >
-          <GlowEffect type="neon" color="#60a5fa" intensity="medium" animated={!shouldReduceMotion}>
-            <motion.span
-              className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent"
-              animate={{
-                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              style={{
-                backgroundSize: '200% 200%'
-              }}
-            >
-              Aditya Kumar
-            </motion.span>
-          </GlowEffect>
+          <span className="text-white">
+            Aditya Kumar
+          </span>
         </motion.h1>
 
         {/* Dynamic Title with Typewriter Effect */}
