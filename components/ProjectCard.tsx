@@ -152,7 +152,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
       onClick={handleCardClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group relative h-[500px] cursor-pointer overflow-hidden rounded-xl bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl dark:bg-gray-800"
+      className="group relative h-[500px] cursor-pointer overflow-hidden rounded-xl bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 dark:bg-gray-800"
     >
       {/* Ripple effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
@@ -235,11 +235,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
           >
             <motion.button 
               onClick={(e) => { e.stopPropagation(); paginate(-1); }}
-              className="bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2.5 rounded-full backdrop-blur-sm shadow-lg border border-white/20"
+              className="bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2.5 rounded-full backdrop-blur-sm shadow-lg border border-white/20 hover:shadow-blue-500/20 hover:shadow-xl"
               whileHover={{ 
                 scale: 1.1,
                 backgroundColor: "rgba(255, 255, 255, 1)",
-                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.15)"
+                boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)"
               }}
               whileTap={{ scale: 0.9 }}
             >
@@ -247,11 +247,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
             </motion.button>
             <motion.button 
               onClick={(e) => { e.stopPropagation(); paginate(1); }}
-              className="bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2.5 rounded-full backdrop-blur-sm shadow-lg border border-white/20"
+              className="bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2.5 rounded-full backdrop-blur-sm shadow-lg border border-white/20 hover:shadow-blue-500/20 hover:shadow-xl"
               whileHover={{ 
                 scale: 1.1,
                 backgroundColor: "rgba(255, 255, 255, 1)",
-                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.15)"
+                boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)"
               }}
               whileTap={{ scale: 0.9 }}
             >

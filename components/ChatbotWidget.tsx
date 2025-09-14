@@ -113,7 +113,7 @@ const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
     return (
         <motion.div
-            className="fixed bottom-24 right-4 sm:bottom-20 sm:right-5 w-[calc(100%-2rem)] max-w-sm h-[70vh] max-h-[500px] bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg rounded-2xl shadow-2xl flex flex-col border border-gray-200/50 dark:border-gray-700/50 overflow-hidden z-40"
+            className="fixed bottom-24 right-4 sm:bottom-20 sm:right-5 w-[calc(100%-2rem)] max-w-sm h-[70vh] max-h-[500px] bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-blue-500/20 hover:shadow-3xl flex flex-col border border-gray-200/50 dark:border-gray-700/50 overflow-hidden z-40 transition-all duration-300"
             initial={{ opacity: 0, y: 20, scale: 0.95, rotateX: -15 }}
             animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
             exit={{ opacity: 0, y: 20, scale: 0.95, rotateX: 15 }}
@@ -274,7 +274,7 @@ const Chatbot: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Ask about Aditya's skills, projects, experience..."
-                        className="w-full pl-4 pr-12 py-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-sm"
+                        className="w-full pl-4 pr-12 py-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:shadow-blue-500/20 focus:shadow-lg transition-all shadow-sm"
                         disabled={isLoading}
                         animate={inputControls}
                         whileFocus={{ 

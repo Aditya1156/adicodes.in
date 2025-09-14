@@ -196,8 +196,51 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
     >
       {/* Enhanced container */}
       <div className="relative w-full max-w-5xl mx-auto px-4">
+        {/* Enhanced Navigation arrows with professional half-circle design */}
+        <motion.button
+          onClick={() => paginate(-1)}
+          className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-3/4 w-12 h-12 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border-2 border-slate-200/80 dark:border-slate-600/80 hover:border-blue-500/50 dark:hover:border-blue-400/50 z-30 backdrop-blur-sm transition-all duration-300 flex items-center justify-center"
+          style={{
+            borderRadius: '50% 0 0 50%',
+            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+          }}
+          whileHover={{ 
+            scale: 1.1,
+            x: -3,
+            boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)"
+          }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: isInView ? 1 : 0, x: 0 }}
+          transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
+          aria-label="Previous project"
+        >
+          <ChevronLeftIcon className="h-6 w-6" />
+        </motion.button>
+
+        <motion.button
+          onClick={() => paginate(1)}
+          className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-3/4 w-12 h-12 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 border-2 border-slate-200/80 dark:border-slate-600/80 hover:border-blue-500/50 dark:hover:border-blue-400/50 z-30 backdrop-blur-sm transition-all duration-300 flex items-center justify-center"
+          style={{
+            borderRadius: '0 50% 50% 0',
+            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+          }}
+          whileHover={{ 
+            scale: 1.1,
+            x: 3,
+            boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)"
+          }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, x: 0 }}
+          transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
+          aria-label="Next project"
+        >
+          <ChevronRightIcon className="h-6 w-6" />
+        </motion.button>
+
         <motion.div 
-          className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-gray-600/60 shadow-xl overflow-hidden"
+          className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-gray-600/60 shadow-xl hover:shadow-blue-500/20 hover:shadow-2xl overflow-hidden"
           initial={glowVariants.initial}
           animate={isHovered ? glowVariants.hover : glowVariants.initial}
           whileHover={{ 
@@ -276,7 +319,7 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
                       <>
                         <button
                           onClick={handleImageCycle}
-                          className="absolute bottom-6 right-6 bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2 rounded-full shadow-lg hover:scale-110 transition-all duration-200"
+                          className="absolute bottom-6 right-6 bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white p-2 rounded-full shadow-lg hover:scale-110 hover:shadow-blue-500/20 hover:shadow-xl transition-all duration-200"
                           aria-label="Next image"
                         >
                           <ChevronRightIcon className="h-4 w-4" />
@@ -461,43 +504,6 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
               </div>
             </motion.div>
           </AnimatePresence>
-
-          {/* Enhanced Navigation arrows with better positioning */}
-          <motion.button
-            onClick={() => paginate(-1)}
-            className="absolute top-1/2 -left-5 -translate-y-1/2 bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-white p-3 rounded-full shadow-lg hover:shadow-xl border border-slate-200/50 dark:border-slate-700/50 z-20 backdrop-blur-sm"
-            whileHover={{ 
-              scale: 1.05,
-              x: -3,
-              backgroundColor: "rgba(255, 255, 255, 1)",
-              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)"
-            }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: isInView ? 1 : 0, x: 0 }}
-            transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
-            aria-label="Previous project"
-          >
-            <ChevronLeftIcon className="h-5 w-5" />
-          </motion.button>
-
-          <motion.button
-            onClick={() => paginate(1)}
-            className="absolute top-1/2 -right-5 -translate-y-1/2 bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-white p-3 rounded-full shadow-lg hover:shadow-xl border border-slate-200/50 dark:border-slate-700/50 z-20 backdrop-blur-sm"
-            whileHover={{ 
-              scale: 1.05,
-              x: 3,
-              backgroundColor: "rgba(255, 255, 255, 1)",
-              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)"
-            }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: isInView ? 1 : 0, x: 0 }}
-            transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
-            aria-label="Next project"
-          >
-            <ChevronRightIcon className="h-5 w-5" />
-          </motion.button>
         </motion.div>
 
         {/* Enhanced project indicators with progress bar */}

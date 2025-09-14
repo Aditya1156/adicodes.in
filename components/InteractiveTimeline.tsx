@@ -181,30 +181,35 @@ const TimelineCard: React.FC<{
       transition={{ delay: index * 0.1 }}
       whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
     >
-      {/* Timeline Line */}
-      <div className="absolute left-8 top-16 w-0.5 h-full bg-gray-300 dark:bg-gray-600 -z-10" />
-      
-      {/* Timeline Dot */}
+      {/* Timeline Dot - Enhanced with better positioning */}
       <motion.div
-        className={`relative z-10 w-16 h-16 rounded-full ${getStatusColor(event.status)} flex items-center justify-center text-white text-2xl shadow-lg`}
-        whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
+        className={`relative z-20 w-16 h-16 rounded-full ${getStatusColor(event.status)} flex items-center justify-center text-white text-2xl shadow-xl border-4 border-gray-900`}
+        whileHover={shouldReduceMotion ? {} : { 
+          scale: 1.1,
+          boxShadow: '0 0 0 4px rgba(17, 24, 39, 1), 0 0 30px rgba(59, 130, 246, 0.5)'
+        }}
         whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+        style={{
+          boxShadow: '0 0 0 4px rgba(17, 24, 39, 1), 0 0 20px rgba(59, 130, 246, 0.3)',
+          minWidth: '64px', // Ensure consistent width
+          minHeight: '64px' // Ensure consistent height
+        }}
       >
         {event.icon}
         {event.status === 'in-progress' && (
           <motion.div
-            className="absolute inset-0 rounded-full border-2 border-white"
+            className="absolute inset-0 rounded-full border-2 border-white opacity-60"
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
         )}
       </motion.div>
 
-      {/* Card Content */}
+      {/* Card Content - Better aligned */}
       <motion.div
         className={`ml-6 p-6 rounded-xl border-2 ${getTypeColor(event.type)} ${
           isActive ? 'shadow-lg scale-105' : 'shadow-sm'
-        } transition-all duration-300 flex-1`}
+        } transition-all duration-300 flex-1 hover:shadow-blue-500/20 hover:shadow-xl min-h-[120px] flex flex-col justify-center`}
         layoutId={`card-${event.id}`}
       >
         <div className="flex items-center justify-between mb-2">
@@ -387,16 +392,36 @@ const InteractiveTimeline: React.FC = () => {
 
         {/* Timeline */}
         <div className="relative">
-          <div className="space-y-8">
+          {/* Continuous Timeline Line - Properly positioned to connect all dots */}
+          <div className="absolute w-1 z-0 bg-gradient-to-b from-blue-400 via-indigo-400 to-purple-400 opacity-80 rounded-full"
+               style={{ 
+                 left: '31px', // Exact center of the 64px (4rem) dot
+                 top: '32px',  // Start from center of first dot
+                 bottom: '32px', // End at center of last dot
+               }} 
+          />
+          
+          {/* Enhanced background line for depth */}
+          <div className="absolute w-3 z-0 bg-gradient-to-b from-gray-700/20 to-gray-800/40 rounded-full blur-sm"
+               style={{ 
+                 left: '30px',
+                 top: '32px',
+                 bottom: '32px',
+               }} 
+          />
+          
+          {/* Timeline container with consistent spacing */}
+          <div className="space-y-8 relative z-10">
             <AnimatePresence mode="wait">
               {filteredEvents.map((event, index) => (
-                <TimelineCard
-                  key={event.id}
-                  event={event}
-                  isActive={selectedEvent?.id === event.id}
-                  onClick={() => setSelectedEvent(event)}
-                  index={index}
-                />
+                <div key={event.id} className="relative">
+                  <TimelineCard
+                    event={event}
+                    isActive={selectedEvent?.id === event.id}
+                    onClick={() => setSelectedEvent(event)}
+                    index={index}
+                  />
+                </div>
               ))}
             </AnimatePresence>
           </div>

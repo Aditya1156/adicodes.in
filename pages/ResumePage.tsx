@@ -201,7 +201,7 @@ const ResumePage: React.FC = () => {
           {skillCategories.map((category, index) => (
             <motion.div
               key={index}
-              className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700"
+              className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 hover:shadow-blue-500/20 hover:shadow-xl transition-all duration-300"
               {...(shouldReduceMotion ? {} : optimizedFadeInUp)}
               transition={{ delay: index * 0.1 }}
             >
@@ -232,7 +232,7 @@ const ResumePage: React.FC = () => {
           {PROJECTS.slice(0, 3).map((project, index) => (
             <motion.div
               key={index}
-              className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700"
+              className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 hover:shadow-blue-500/20 hover:shadow-xl transition-all duration-300"
               {...(shouldReduceMotion ? {} : optimizedFadeInUp)}
               transition={{ delay: index * 0.1 }}
             >
@@ -373,7 +373,7 @@ const ResumePage: React.FC = () => {
                   key={section.id}
                   {...(shouldReduceMotion ? {} : optimizedFadeIn)}
                   exit={{ opacity: 0, y: -20 }}
-                  className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-700"
+                  className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-700 hover:shadow-blue-500/20 hover:shadow-2xl transition-all duration-300"
                 >
                   <h2 className="text-3xl font-bold text-white mb-8 text-center">
                     {section.title}

@@ -218,7 +218,7 @@ const ContactPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 md:p-12"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 md:p-12 hover:shadow-blue-500/20 hover:shadow-3xl transition-all duration-300"
             >
               {/* Contact Form Tab */}
               {activeTab === 'contact' && (
@@ -262,12 +262,12 @@ const ContactPage: React.FC = () => {
                           id="name" 
                           required 
                           placeholder="What should I call you?"
-                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400" 
+                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:shadow-blue-500/20 focus:shadow-xl transition-all duration-300 text-white placeholder-gray-400" 
                           onFocus={() => setFocusedField('name')}
                           onBlur={() => setFocusedField(null)}
                           whileFocus={{ 
                             scale: 1.02,
-                            boxShadow: "0 8px 30px rgba(99, 102, 241, 0.15)"
+                            boxShadow: "0 8px 30px rgba(59, 130, 246, 0.25)"
                           }}
                           disabled={isSubmitting}
                         />
@@ -292,12 +292,12 @@ const ContactPage: React.FC = () => {
                           id="email" 
                           required 
                           placeholder="your.email@example.com"
-                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400" 
+                          className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:shadow-blue-500/20 focus:shadow-xl transition-all duration-300 text-white placeholder-gray-400" 
                           onFocus={() => setFocusedField('email')}
                           onBlur={() => setFocusedField(null)}
                           whileFocus={{ 
                             scale: 1.02,
-                            boxShadow: "0 8px 30px rgba(99, 102, 241, 0.15)"
+                            boxShadow: "0 8px 30px rgba(59, 130, 246, 0.25)"
                           }}
                           disabled={isSubmitting}
                         />
@@ -323,12 +323,12 @@ const ContactPage: React.FC = () => {
                         rows={6} 
                         required 
                         placeholder="Tell me about your project, ask a question, or just say hello! I'm excited to hear from you..."
-                        className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none text-white placeholder-gray-400" 
+                        className="w-full px-4 py-4 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm border-2 border-gray-600 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:shadow-blue-500/20 focus:shadow-xl transition-all duration-300 resize-none text-white placeholder-gray-400" 
                         onFocus={() => setFocusedField('message')}
                         onBlur={() => setFocusedField(null)}
                         whileFocus={{ 
                           scale: 1.01,
-                          boxShadow: "0 8px 30px rgba(99, 102, 241, 0.15)"
+                          boxShadow: "0 8px 30px rgba(59, 130, 246, 0.25)"
                         }}
                         disabled={isSubmitting}
                       />
@@ -579,7 +579,7 @@ const ContactPage: React.FC = () => {
                       whileHover={{ 
                         scale: 1.03,
                         y: -5,
-                        boxShadow: "0 20px 40px rgba(99, 102, 241, 0.2)"
+                        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
                       }}
                       whileTap={{ scale: 0.97 }}
                       variants={staggerItem}
@@ -611,7 +611,7 @@ const ContactPage: React.FC = () => {
                       whileHover={{ 
                         scale: 1.03,
                         y: -5,
-                        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.2)"
+                        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
                       }}
                       whileTap={{ scale: 0.97 }}
                       variants={staggerItem}
@@ -640,7 +640,7 @@ const ContactPage: React.FC = () => {
                       whileHover={{ 
                         scale: 1.03,
                         y: -5,
-                        boxShadow: "0 20px 40px rgba(107, 114, 128, 0.2)"
+                        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
                       }}
                       whileTap={{ scale: 0.97 }}
                       variants={staggerItem}
