@@ -232,146 +232,23 @@ const HeroSection: React.FC = () => {
           {...(shouldReduceMotion ? {} : optimizedScaleIn)}
           transition={{ delay: 0.1 }}
         >
-          <GlowEffect type="smoky" color="#60a5fa" intensity="low" animated={!shouldReduceMotion}>
-            <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6">
-            {/* Subtle glowing background */}
-            <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-slate-600/15 to-gray-600/15 blur-md"
-              animate={shouldReduceMotion ? {} : {
-                scale: [1, 1.05, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+          <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6">
+            {/* Basic color glow background */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-sm"></div>
             
-            {/* Professional border with subtle gradient */}
-            <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-500/25 via-gray-500/15 to-slate-600/25 p-0.5"
-              whileHover={shouldReduceMotion ? {} : {
-                scale: 1.02,
-                transition: { duration: 0.3 }
-              }}
-            >
-              {/* Simple Glow Effect */}
-              <motion.div
-                className="absolute -inset-4 rounded-full bg-blue-500/20 blur-md"
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              
-              {/* Floating particles */}
-              <motion.div
-                className="absolute -inset-12 pointer-events-none"
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-60"
-                    style={{
-                      top: `${Math.sin((i * Math.PI * 2) / 6) * 40 + 50}%`,
-                      left: `${Math.cos((i * Math.PI * 2) / 6) * 40 + 50}%`,
-                    }}
-                    animate={{
-                      scale: [1, 2, 1],
-                      opacity: [0.3, 0.8, 0.3],
-                      y: [0, -10, 0],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.5,
-                    }}
+            <div className="relative w-full h-full rounded-full bg-gradient-to-br from-slate-700 to-slate-900 p-1 shadow-xl overflow-hidden">
+              {/* Colored border */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 p-0.5">
+                <div className="w-full h-full rounded-full bg-slate-900 p-1">
+                  <img
+                    src="/images/aditya.jpg"
+                    alt="Aditya Kumar"
+                    className="w-full h-full object-cover rounded-full"
                   />
-                ))}
-              </motion.div>
-              
-              <div className="relative w-full h-full rounded-full bg-slate-900 p-1 shadow-2xl overflow-hidden">
-                {/* Inner glow */}
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10"
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                
-                <motion.img
-                  src="/images/aditya.jpg"
-                  alt="Aditya Kumar"
-                  className="relative z-10 w-full h-full object-cover rounded-full"
-                  whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.05,
-                    transition: { duration: 0.3 }
-                  }}
-                />
-                
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                  animate={{
-                    x: ['-100%', '100%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    repeatDelay: 2,
-                  }}
-                />
+                </div>
               </div>
-            </motion.div>
-            
-            {/* Subtle floating accent dots */}
-            <motion.div
-              className="absolute -top-1 -right-1 w-2 h-2 bg-slate-400 rounded-full opacity-60"
-              animate={shouldReduceMotion ? {} : {
-                scale: [1, 1.2, 1],
-                opacity: [0.6, 0.8, 0.6],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.div
-              className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-gray-400 rounded-full opacity-50"
-              animate={shouldReduceMotion ? {} : {
-                scale: [1, 1.3, 1],
-                opacity: [0.5, 0.7, 0.5],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1.5
-              }}
-            />
+            </div>
           </div>
-          </GlowEffect>
         </motion.div>
 
         {/* Greeting */}
