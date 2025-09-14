@@ -20,16 +20,8 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    try {
-      window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth',
-      });
-    } catch (error) {
-      // Fallback for browsers that don't support smooth scrolling
-      window.scrollTo(0, 0);
-    }
+    // Use CSS smooth scroll behavior instead of JavaScript
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return null;
@@ -41,13 +33,21 @@ const ScrollProgressIndicator = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      
-      setScrollProgress(scrollPercent);
-      setIsVisible(scrollTop > 100);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollPercent = (scrollTop / docHeight) * 100;
+          
+          setScrollProgress(scrollPercent);
+          setIsVisible(scrollTop > 100);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -121,43 +121,9 @@ const AppContent: React.FC = () => {
 
   // Add smooth scrolling to the entire page
   useEffect(() => {
-    // Enable smooth scrolling for the entire document
-    document.documentElement.style.scrollBehavior = 'smooth';
-    
-    // Add custom scrollbar styles
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      
-      ::-webkit-scrollbar-track {
-        background: #1e293b;
-        border-radius: 4px;
-      }
-      
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #8b5cf6, #3b82f6);
-        border-radius: 4px;
-        transition: background 0.3s ease;
-      }
-      
-      ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #7c3aed, #2563eb);
-      }
-      
-      /* Firefox */
-      html {
-        scrollbar-width: thin;
-        scrollbar-color: #8b5cf6 #1e293b;
-      }
-    `;
-    document.head.appendChild(style);
-
+    // CSS scroll-behavior is already set in index.css, no need to duplicate
     return () => {
-      document.documentElement.style.scrollBehavior = 'auto';
-      document.head.removeChild(style);
+      // Cleanup if needed
     };
   }, []);
 

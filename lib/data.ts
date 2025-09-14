@@ -50,7 +50,7 @@ export const PROJECTS: Project[] = [
             '/images/airline1.jpg',
             '/images/airline2.jpg',
             '/images/airline3.jpg',
-            '/images/airline4.png',
+            '/images/airline4.jpg',
         ],
         tags: ['Java', 'Desktop Application', 'Database Management'],
         repoUrl: 'https://github.com/Aditya1156/FlightManagementSys',

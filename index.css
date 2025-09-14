@@ -49,7 +49,6 @@ html {
 
 /* Enhanced body styles for better scrolling */
 body {
-  scroll-behavior: smooth;
   overflow-x: hidden;
   overflow-y: auto !important; /* Always allow vertical scrolling */
   line-height: 1.6;

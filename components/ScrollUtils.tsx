@@ -35,21 +35,29 @@ export const ScrollNavigation: React.FC = () => {
   ];
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const sections = ['home', 'skills', 'projects', 'timeline', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const sections = ['home', 'skills', 'projects', 'timeline', 'contact'];
+          const scrollPosition = window.scrollY + 100;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const offsetTop = element.offsetTop;
+              const offsetHeight = element.offsetHeight;
+              
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveSection(section);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -68,9 +76,8 @@ export const ScrollNavigation: React.FC = () => {
   };
 
   return (
-    <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-40 hidden lg:block">
-      <div className="bg-black/20 backdrop-blur-md rounded-full p-2 border border-white/10">
-        {sections.map((section) => (
+    <div className="fixed right-20 top-1/2 transform -translate-y-1/2 z-30 hidden lg:block">
+      <div className="bg-black/20 backdrop-blur-md rounded-full p-2 border border-white/10">{sections.map((section) => (
           <button
             key={section.id}
             onClick={() => scrollToSection(section.id)}
