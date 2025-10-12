@@ -1,5 +1,5 @@
 // Service Worker for PWA functionality
-const CACHE_NAME = 'adicodes-portfolio-v1.0.0';
+const CACHE_NAME = 'adicodes-portfolio-v1.1.0';
 const STATIC_CACHE = `${CACHE_NAME}-static`;
 const DYNAMIC_CACHE = `${CACHE_NAME}-dynamic`;
 const OFFLINE_PAGE = '/offline.html';

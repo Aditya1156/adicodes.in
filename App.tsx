@@ -150,6 +150,9 @@ const App: React.FC = () => {
 
   // Initialize performance monitoring
   useEffect(() => {
+    // Log for debugging deployment
+    console.log('App initialized - Router: BrowserRouter');
+    
     // Enforce HTTPS in production
     httpsEnforcement.enforceHTTPS();
     
