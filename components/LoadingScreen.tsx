@@ -8,6 +8,7 @@ interface LoadingScreenProps {
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [showChoice, setShowChoice] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile device
@@ -33,14 +34,10 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(progressInterval);
-          setIsComplete(true);
-          // Restore scroll
-          document.body.style.overflow = 'unset';
-          
-          // Shorter delay on mobile to reduce flickering
+          // Show choice screen after loading completes
           setTimeout(() => {
-            onComplete();
-          }, isMobile ? 200 : 500);
+            setShowChoice(true);
+          }, 500);
           return 100;
         }
         return prev + 1;
@@ -52,7 +49,21 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       // Ensure scroll is restored on cleanup
       document.body.style.overflow = 'unset';
     };
-  }, [onComplete, isMobile]);
+  }, [isMobile]);
+
+  const handleChoice = (choice: 'website' | 'portfolio') => {
+    if (choice === 'portfolio') {
+      // Redirect to portfolio version (you'll add the link later)
+      window.location.href = 'https://portfolio.adicodes.in'; // Replace with your portfolio link
+    } else {
+      // Continue to main website
+      setIsComplete(true);
+      document.body.style.overflow = 'unset';
+      setTimeout(() => {
+        onComplete();
+      }, isMobile ? 200 : 500);
+    }
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -166,7 +177,120 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
             )}
           </div>
 
-          <div className="relative z-10 text-center px-4 w-full max-w-md mx-auto">
+          {/* Choice Screen - Shows after loading completes */}
+          <AnimatePresence mode="wait">
+            {showChoice ? (
+              <motion.div
+                className="relative z-10 text-center px-4 w-full max-w-2xl mx-auto"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <motion.h2
+                  className={`${isMobile ? 'text-3xl' : 'text-5xl'} font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent`}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  Welcome to adicodes.in
+                </motion.h2>
+                
+                <motion.p
+                  className={`${isMobile ? 'text-base' : 'text-xl'} text-gray-400 mb-12`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  Choose your experience
+                </motion.p>
+
+                <div className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-2 gap-6'}`}>
+                  {/* Website Option */}
+                  <motion.button
+                    onClick={() => handleChoice('website')}
+                    className="group relative overflow-hidden bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-2 border-blue-400/30 rounded-2xl p-8 hover:border-blue-400/60 transition-all duration-300"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/0 to-cyan-400/0 group-hover:from-blue-400/10 group-hover:to-cyan-400/10 transition-all duration-300" />
+                    
+                    <div className="relative z-10">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">Website</h3>
+                      <p className="text-gray-400 text-sm mb-4">Full experience with blog, projects & chatbot</p>
+                      
+                      <div className="flex items-center justify-center space-x-2 text-xs text-gray-500">
+                        <span className="px-2 py-1 bg-blue-500/20 rounded-full">Interactive</span>
+                        <span className="px-2 py-1 bg-cyan-500/20 rounded-full">Feature Rich</span>
+                      </div>
+                    </div>
+
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.button>
+
+                  {/* Portfolio Option */}
+                  <motion.button
+                    onClick={() => handleChoice('portfolio')}
+                    className="group relative overflow-hidden bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-400/30 rounded-2xl p-8 hover:border-purple-400/60 transition-all duration-300"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-400/0 to-pink-400/0 group-hover:from-purple-400/10 group-hover:to-pink-400/10 transition-all duration-300" />
+                    
+                    <div className="relative z-10">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:shadow-purple-500/50 transition-all duration-300">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">Portfolio</h3>
+                      <p className="text-gray-400 text-sm mb-4">Simplified version focused on work & skills</p>
+                      
+                      <div className="flex items-center justify-center space-x-2 text-xs text-gray-500">
+                        <span className="px-2 py-1 bg-purple-500/20 rounded-full">Minimal</span>
+                        <span className="px-2 py-1 bg-pink-500/20 rounded-full">Fast</span>
+                      </div>
+                    </div>
+
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.button>
+                </div>
+
+                <motion.p
+                  className="mt-8 text-sm text-gray-500"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  You can switch between versions anytime
+                </motion.p>
+              </motion.div>
+            ) : (
+              /* Loading Screen - Shows during progress */
+              <div className="relative z-10 text-center px-4 w-full max-w-md mx-auto">
             {/* Name Animation - Responsive sizing */}
             <motion.div
               className="mb-8 md:mb-12"
@@ -474,6 +598,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
               </AnimatePresence>
             </motion.div>
           </div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>
