@@ -39,14 +39,9 @@
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com" />
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- PrismJS Dark Theme Only -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
@@ -87,19 +82,10 @@
     <script>
       // Force dark theme
       document.documentElement.classList.add('dark');
-
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-          }
-        }
-      }
     </script>
-  </head>
+<script defer src="/_vercel/insights/script.js"></script>
+<link rel="stylesheet" href="/index.css">
+</head>
   <body class="bg-gray-900 text-gray-100 antialiased m-0 p-0 w-full h-screen">
     <div id="root" class="w-full h-full"></div>
     <script type="module" src="/index.tsx"></script>
