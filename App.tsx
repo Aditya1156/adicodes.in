@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, Suspense, lazy } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -200,10 +200,10 @@ const App: React.FC = () => {
         <AccessibilityProvider>
           <HelmetProvider>
             <SEO />
-            <HashRouter>
+            <BrowserRouter>
               <ScrollToTop />
               <AppContent />
-            </HashRouter>
+            </BrowserRouter>
           </HelmetProvider>
         </AccessibilityProvider>
       )}
