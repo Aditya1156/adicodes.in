@@ -68,9 +68,5 @@
         "Cross-Origin-Resource-Policy": "same-origin"
       }
     }
-  ],
-  "env": {
-    "VITE_GOOGLE_ANALYTICS_ID": "@google_analytics_id",
-    "VITE_GEMINI_API_KEY": "@gemini_api_key"
-  }
+  ]
 }
