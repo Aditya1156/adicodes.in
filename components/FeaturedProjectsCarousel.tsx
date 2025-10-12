@@ -1,17 +1,9 @@
-import React, { useState, useRef, useEffect, useCallback, memo, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Project } from '../types';
 import { ChevronLeftIcon, ChevronRightIcon, ExternalLinkIcon } from './icons/UIIcons';
 import { GithubIcon } from './icons/SocialIcons';
-import { useShouldReduceMotion } from '../hooks/useReducedMotion';
-import { 
-  optimizedFadeIn, 
-  optimizedSlideIn, 
-  optimizedScaleIn, 
-  optimizedHover,
-  getOptimizedVariants 
-} from '../lib/optimizedAnimations';
 
 interface FeaturedProjectsCarouselProps {
   projects: Project[];
@@ -113,22 +105,6 @@ const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> = ({ pro
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(carouselRef, { once: true, margin: "-100px" });
-  const shouldReduceMotion = useShouldReduceMotion();
-
-  // Memoize animation variants to prevent recreation on every render
-  const animationVariants = useMemo(() => ({
-    slideVariants: getOptimizedVariants(
-      shouldReduceMotion,
-      slideVariants,
-      optimizedSlideIn
-    ),
-    containerVariants: getOptimizedVariants(
-      shouldReduceMotion,
-      containerVariants,
-      optimizedFadeIn
-    ),
-    glowVariants: shouldReduceMotion ? {} : glowVariants
-  }), [shouldReduceMotion]);
 
   // Enhanced auto-play functionality with faster transitions
   useEffect(() => {

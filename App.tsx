@@ -146,7 +146,7 @@ const PageLoader = () => (
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isInitialized, setIsInitialized] = useState(false);
-  const { isSupported, updateAvailable, updateServiceWorker } = useServiceWorker();
+  const { updateAvailable, updateServiceWorker } = useServiceWorker();
 
   // Initialize performance monitoring
   useEffect(() => {

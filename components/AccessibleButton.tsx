@@ -100,7 +100,7 @@ const AccessibleButton = forwardRef<HTMLButtonElement, AccessibleButtonProps>(
 
     // Handle keyboard activation
     const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-      keyboardNavigation.handleActivation(event, () => {
+      keyboardNavigation.handleActivation(event.nativeEvent, () => {
         if (!loading && !disabled) {
           handleClick(event as any);
         }
@@ -178,7 +178,7 @@ const AccessibleButton = forwardRef<HTMLButtonElement, AccessibleButtonProps>(
       return (
         <motion.button
           {...buttonProps}
-          {...motionProps}
+          {...(motionProps as any)}
           whileHover={reducedMotionUtils.respectReducedMotion(
             motionProps.whileHover || { scale: 1.02 },
             {}

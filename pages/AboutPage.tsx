@@ -5,14 +5,6 @@ import { TIMELINE_EVENTS } from '../lib/data';
 import { BookOpenIcon, CafeIcon, CodeBracketIcon } from '../components/icons/UIIcons';
 import BackgroundWrapper from '../components/BackgroundWrapper';
 import MetaTags from '../components/MetaTags';
-import { 
-  staggerContainer, 
-  fadeInUp, 
-  fadeInLeft, 
-  fadeInRight,
-  scaleIn,
-  bounceIn
-} from '../lib/animations';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -159,7 +151,9 @@ const AboutPage: React.FC = () => {
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.2 }}
                   >
-                      {displayedSkills.map((skill) => (
+                      {displayedSkills.map((skill) => {
+                          if (!skill) return null;
+                          return (
                           <motion.div
                               key={skill.name}
                               className="group flex flex-col items-center gap-2"
@@ -172,7 +166,7 @@ const AboutPage: React.FC = () => {
                               </div>
                               <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{skill.name}</span>
                           </motion.div>
-                      ))}
+                      )})}
                   </motion.div>
               </div>
 

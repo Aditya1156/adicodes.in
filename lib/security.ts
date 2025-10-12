@@ -1,4 +1,5 @@
 // Security utilities and headers
+import React from 'react';
 
 // Content Security Policy generator
 export const generateCSP = () => {
@@ -249,11 +250,11 @@ export const secureErrorHandling = {
         return { hasError: true, error };
       }
 
-      componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+      override componentDidCatch(error: Error, _errorInfo: React.ErrorInfo) {
         secureErrorHandling.logError(error, 'React Error Boundary');
       }
 
-      render() {
+      override render() {
         if (this.state.hasError) {
           return React.createElement(fallbackComponent);
         }

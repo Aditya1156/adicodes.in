@@ -172,22 +172,46 @@ adicodes.in/
 └── package.json           # Dependencies and scripts
 ```
 
-## 🚀 Quick Deploy
+## 🚀 Deployment
 
 ### Deploy to Vercel (Recommended)
-1. Push to GitHub: `git push origin main`
-2. Connect repository to Vercel
-3. Deploy automatically
 
-### Deploy to Netlify
-1. Push to GitHub: `git push origin main`
-2. Connect repository to Netlify
-3. Deploy with drag & drop or Git integration
+This project is optimized for **Vercel** deployment with automatic builds and previews.
 
-### Deploy to GitHub Pages
-1. Push to GitHub: `git push origin main`
-2. Enable GitHub Pages in repository settings
-3. Select "GitHub Actions" as source
+#### Quick Deploy Steps:
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Connect to Vercel**
+   - Go to [Vercel Dashboard](https://vercel.com)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Vercel will auto-detect Vite configuration
+
+3. **Configure Environment Variables**
+   - Add `VITE_GEMINI_API_KEY` for AI chatbot
+   - Add `VITE_GOOGLE_ANALYTICS_ID` for analytics (optional)
+
+4. **Deploy**
+   - Click "Deploy" and wait for build to complete
+   - Your site will be live at `your-project.vercel.app`
+
+#### Vercel Configuration
+The project includes a `vercel.json` file with:
+- ✅ Optimized build settings
+- ✅ Security headers (CSP, HSTS, etc.)
+- ✅ Cache control for assets
+- ✅ SPA routing configuration
+- ✅ Service worker support
+
+#### Automatic Deployments
+- **Production**: Deploys automatically on push to `main` branch
+- **Preview**: Creates preview URLs for pull requests
+- **Instant Rollbacks**: Easy rollback to previous deployments
 
 ## 🎨 Key Components
 
