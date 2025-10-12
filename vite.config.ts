@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
     const isProduction = mode === 'production';
     
     return {
+      base: '/', // Ensure base path is set correctly for Vercel
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
